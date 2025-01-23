@@ -24,6 +24,14 @@ public class Printer {
                 """, task, totalTasks, totalTasks == 1 ? "" : "s");
     }
 
+    public void displayTaskDeleted(Task task, int totalTasks) {
+        System.out.printf("""
+                One less thing to pond-er about!
+                    %s
+                You now have %d task%s.
+                """, task, totalTasks, totalTasks == 1 ? "" : "s");
+    }
+
     public void displayTaskMarked(Task task, boolean completed) {
         if (completed) {
             System.out.printf("""

@@ -12,7 +12,8 @@ public class TaskManager {
 
     public Task getTask(int index) {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new IllegalArgumentException("Task number out of range!");
+            throw new IllegalArgumentException("The task number is " +
+                    "out of range!");
         }
         return this.tasks.get(index);
     }
@@ -35,5 +36,13 @@ public class TaskManager {
         Task task = this.getTask(index);
         task.unmark();
         return task;
+    }
+
+    public Task deleteTask(int index) {
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new IllegalArgumentException("The task number is " +
+                    "out of range!");
+        }
+        return this.tasks.remove(index);
     }
 }

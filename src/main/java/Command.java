@@ -70,6 +70,15 @@ public enum Command {
             taskManager.addTask(event);
             printer.displayTaskAdded(event, taskManager.getTaskCount());
         }
+    },
+    DELETE {
+        @Override
+        public void execute(String argument, TaskManager taskManager,
+                Printer printer) {
+            int index = parseIndex(argument);
+            Task task = taskManager.deleteTask(index);
+            printer.displayTaskDeleted(task, taskManager.getTaskCount());
+        }
     };
 
     public abstract void execute(String argument, TaskManager taskManager,
@@ -79,7 +88,7 @@ public enum Command {
         try {
             return Integer.parseInt(argument) - 1;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid task number: "
+            throw new IllegalArgumentException("The task number is invalid: "
                     + argument);
         }
     }

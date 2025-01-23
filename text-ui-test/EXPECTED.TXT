@@ -45,6 +45,8 @@ You now have 3 tasks.
 > Quack-cellent job, citizen! The task is completed.
     [E][X] eventtest (from: fromtime to: totime)
 
+> Something's a-fowl! The task number is out of range!
+
 > Here are the tasks in your list:
     1. [T][X] todotest
     2. [D][X] dltest (by: dl)
@@ -63,6 +65,16 @@ You now have 3 tasks.
     1. [T][ ] todotest
     2. [D][ ] dltest (by: dl)
     3. [E][ ] eventtest (from: fromtime to: totime)
+
+> Something's a-fowl! The task number is out of range!
+
+> One less thing to pond-er about!
+    [D][ ] dltest (by: dl)
+You now have 2 tasks.
+
+> Here are the tasks in your list:
+    1. [T][ ] todotest
+    2. [E][ ] eventtest (from: fromtime to: totime)
 
 > Farewell, citizens of Duckville!
 This is Mighty Duck, flying off to new adventures!
