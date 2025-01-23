@@ -2,60 +2,69 @@
 Greetings, citizens of Duckville! This is Mighty Duck!
 How can I serve you today?
 
-Woo-hoo! There are no tasks for you currently. Enjoy a good day, citizen!
+> Woo-hoo! There are no tasks currently. Enjoy your day, citizen!
 
-Don't duck the todo list!
+> A wild goose chase! I can't help you with that.
+
+> Something's a-fowl! A todo task must have a description!
+
+> Let's get pro-duck-tive!
     [T][ ] todotest
-You have 1 task in the list.
+You now have 1 task.
 
-Here are the tasks in your list:
-    1.[T][ ] todotest
+> Here are the tasks in your list:
+    1. [T][ ] todotest
 
-The deadline will come quack-ly!
+> Something's a-fowl! Please use: deadline <name> /by <deadline>
+
+> Let's get pro-duck-tive!
     [D][ ] dltest (by: dl)
-You have 2 tasks in the list.
+You now have 2 tasks.
 
-Here are the tasks in your list:
-    1.[T][ ] todotest
-    2.[D][ ] dltest (by: dl)
+> Here are the tasks in your list:
+    1. [T][ ] todotest
+    2. [D][ ] dltest (by: dl)
 
-The event is going to be a real splash!
+> Something's a-fowl! Please use: event <name> /from <start> /to <end>
+
+> Let's get pro-duck-tive!
     [E][ ] eventtest (from: fromtime to: totime)
-You have 3 tasks in the list.
+You now have 3 tasks.
 
-Here are the tasks in your list:
-    1.[T][ ] todotest
-    2.[D][ ] dltest (by: dl)
-    3.[E][ ] eventtest (from: fromtime to: totime)
+> Here are the tasks in your list:
+    1. [T][ ] todotest
+    2. [D][ ] dltest (by: dl)
+    3. [E][ ] eventtest (from: fromtime to: totime)
 
-Quack-cellent job, citizen! The task is completed.
+> Quack-cellent job, citizen! The task is completed.
     [T][X] todotest
 
-Quack-cellent job, citizen! The task is completed.
+> Quack-cellent job, citizen! The task is completed.
     [D][X] dltest (by: dl)
 
-Quack-cellent job, citizen! The task is completed.
+> Quack-cellent job, citizen! The task is completed.
     [E][X] eventtest (from: fromtime to: totime)
 
-Here are the tasks in your list:
-    1.[T][X] todotest
-    2.[D][X] dltest (by: dl)
-    3.[E][X] eventtest (from: fromtime to: totime)
+> Here are the tasks in your list:
+    1. [T][X] todotest
+    2. [D][X] dltest (by: dl)
+    3. [E][X] eventtest (from: fromtime to: totime)
 
-No worries! Waddle at your own pace.
+> No worries! Waddle at your own pace.
     [T][ ] todotest
 
-No worries! Waddle at your own pace.
+> No worries! Waddle at your own pace.
     [D][ ] dltest (by: dl)
 
-No worries! Waddle at your own pace.
+> No worries! Waddle at your own pace.
     [E][ ] eventtest (from: fromtime to: totime)
 
-Here are the tasks in your list:
-    1.[T][ ] todotest
-    2.[D][ ] dltest (by: dl)
-    3.[E][ ] eventtest (from: fromtime to: totime)
+> Here are the tasks in your list:
+    1. [T][ ] todotest
+    2. [D][ ] dltest (by: dl)
+    3. [E][ ] eventtest (from: fromtime to: totime)
 
-Farewell, citizens of Duckville!
+> Farewell, citizens of Duckville!
 This is Mighty Duck, flying off to new adventures!
 ================================================================
+

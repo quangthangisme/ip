@@ -1,8 +1,12 @@
 list
+read
+todo
 todo todotest
 list
+deadline dltest
 deadline dltest /by dl
 list
+event eventtest
 event eventtest /from fromtime /to totime
 list
 mark 1

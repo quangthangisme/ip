@@ -1,120 +1,54 @@
-import task.*;
-
 import java.util.*;
 
 public class MightyDuck {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        TaskManager taskManager = new TaskManager();
+        Printer taskView = new Printer();
 
-        System.out.println("""
-                ================================================================
-                Greetings, citizens of Duckville! \
-                This is Mighty Duck!
-                How can I serve you today?
-                """);
+        printWelcomeMessage();
 
-        label:
         while (true) {
-            String line = sc.nextLine();
-            String[] parts = line.split(" ", 2);
-            String command = parts[0];
+            System.out.print("> ");
+            String input = scanner.nextLine().trim();
+            String[] parts = input.split(" ", 2);
+            String commandStr = parts[0].toUpperCase();
             String argument = parts.length > 1 ? parts[1] : "";
 
-            switch (command) {
-                case "bye":
-                    System.out.println("""
-                            Farewell, citizens of Duckville!
-                            This is Mighty Duck, flying off to new \
-                            adventures!
-                            ===================================================\
-                            =============
-                            """);
-                    break label;
-                case "list":
-                    if (tasks.isEmpty()) {
-                        System.out.println("Woo-hoo! There are no tasks for" +
-                                " you currently. Enjoy a good day, citizen!");
-                        break;
-                    }
-                    System.out.println("Here are the tasks in your list:");
-                    int i = 0;
-                    for (Task task : tasks) {
-                        i++;
-                        System.out.println("    " + i + "." + task);
-                    }
-                    break;
-                case "mark": {
-                    int index = 0;
-                    try {
-                        index = Integer.parseInt(argument);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number: " + argument);
-                    }
-                    Task task = tasks.get(index - 1);
-                    task.mark();
-                    System.out.printf("""
-                            Quack-cellent job, citizen! \
-                            The task is completed.
-                                %s
-                            """, task);
-                    break;
+            if ("BYE".equals(commandStr)) {
+                printFarewellMessage();
+                break;
+            }
+
+            try {
+                Command command = Command.valueOf(commandStr);
+                try {
+                    command.execute(argument, taskManager, taskView);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Something's a-fowl! " + e.getMessage());
                 }
-                case "unmark": {
-                    int index = 0;
-                    try {
-                        index = Integer.parseInt(argument);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number: " + argument);
-                    }
-                    Task task = tasks.get(index - 1);
-                    task.unmark();
-                    System.out.printf("""
-                            No worries! Waddle at your own pace.
-                                %s
-                            """, task);
-                    break;
-                }
-                case "todo": {
-                    Task todo = new ToDo(argument);
-                    tasks.add(todo);
-                    printCf("Don't duck the todo list!", todo, tasks.size());
-                    break;
-                }
-                case "deadline": {
-                    String[] argParts = argument.split(" /by ");
-                    String name = argParts[0];
-                    String dl = argParts[1];
-                    Task dlTask = new Deadline(name, dl);
-                    tasks.add(dlTask);
-                    printCf("The deadline will come quack-ly!", dlTask,
-                            tasks.size());
-                    break;
-                }
-                case "event": {
-                    String[] argParts = argument.split(" /from ");
-                    String name = argParts[0];
-                    String[] timeParts = argParts[1].split(" /to ");
-                    String startTime = timeParts[0];
-                    String endTime = timeParts[1];
-                    Task event = new Event(name, startTime, endTime);
-                    tasks.add(event);
-                    printCf("The event is going to be a real splash!", event,
-                            tasks.size());
-                    break;
-                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("A wild goose chase! I can't help " +
+                        "you with that.");
             }
 
             System.out.println();
         }
     }
 
-    private static void printCf(String message, Task task, int size) {
-        System.out.printf("""
-                        %s
-                            %s
-                        You have %d task%s in the list.
-                        """,
-                message, task, size, size == 1 ? "" : "s");
+    private static void printWelcomeMessage() {
+        System.out.println("""
+                ================================================================
+                Greetings, citizens of Duckville! This is Mighty Duck!
+                How can I serve you today?
+                """);
+    }
+
+    private static void printFarewellMessage() {
+        System.out.println("""
+                Farewell, citizens of Duckville!
+                This is Mighty Duck, flying off to new adventures!
+                ================================================================
+                """);
     }
 }
