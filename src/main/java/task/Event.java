@@ -1,17 +1,17 @@
 package task;
 
 public class Event extends Task {
-    private String fromTime;
-    private String toTime;
+    private String startTime;
+    private String endTime;
 
-    public Event(String name, String fromTime, String toTime) {
+    public Event(String name, String startTime, String endTime) {
         super(name);
-        this.fromTime = fromTime;
-        this.toTime = toTime;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.fromTime + " to: " + this.toTime + ")";
+                + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
 }

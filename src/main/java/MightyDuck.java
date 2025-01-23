@@ -9,9 +9,9 @@ public class MightyDuck {
 
         System.out.println("""
                 ================================================================
-                    Greetings, citizens of Duckville! \
+                Greetings, citizens of Duckville! \
                 This is Mighty Duck!
-                    How can I serve you today?
+                How can I serve you today?
                 """);
 
         label:
@@ -24,19 +24,24 @@ public class MightyDuck {
             switch (command) {
                 case "bye":
                     System.out.println("""
-                                Farewell, citizens of Duckville!
-                                This is Mighty Duck, flying off to new \
+                            Farewell, citizens of Duckville!
+                            This is Mighty Duck, flying off to new \
                             adventures!
                             ===================================================\
                             =============
                             """);
                     break label;
                 case "list":
-                    System.out.println("\tHere are the tasks in your list:");
+                    if (tasks.isEmpty()) {
+                        System.out.println("Woo-hoo! There are no tasks for" +
+                                " you currently. Enjoy a good day, citizen!");
+                        break;
+                    }
+                    System.out.println("Here are the tasks in your list:");
                     int i = 0;
                     for (Task task : tasks) {
                         i++;
-                        System.out.println("\t" + i + "." + task);
+                        System.out.println("    " + i + "." + task);
                     }
                     break;
                 case "mark": {
@@ -44,14 +49,14 @@ public class MightyDuck {
                     try {
                         index = Integer.parseInt(argument);
                     } catch (NumberFormatException e) {
-                        System.out.println("\tInvalid number: " + argument);
+                        System.out.println("Invalid number: " + argument);
                     }
                     Task task = tasks.get(index - 1);
                     task.mark();
                     System.out.printf("""
-                                Quack-cellent job, citizen! \
-                                The task is completed.
-                                    %s
+                            Quack-cellent job, citizen! \
+                            The task is completed.
+                                %s
                             """, task);
                     break;
                 }
@@ -60,13 +65,13 @@ public class MightyDuck {
                     try {
                         index = Integer.parseInt(argument);
                     } catch (NumberFormatException e) {
-                        System.out.println("\tInvalid number: " + argument);
+                        System.out.println("Invalid number: " + argument);
                     }
                     Task task = tasks.get(index - 1);
                     task.unmark();
                     System.out.printf("""
-                                No worries! Waddle at your own pace.
-                                    %s
+                            No worries! Waddle at your own pace.
+                                %s
                             """, task);
                     break;
                 }
@@ -89,10 +94,10 @@ public class MightyDuck {
                 case "event": {
                     String[] argParts = argument.split(" /from ");
                     String name = argParts[0];
-                    String[] fromToParts = argParts[1].split(" /to ");
-                    String fromTime = fromToParts[0];
-                    String toTime = fromToParts[1];
-                    Task event = new Event(name, fromTime, toTime);
+                    String[] timeParts = argParts[1].split(" /to ");
+                    String startTime = timeParts[0];
+                    String endTime = timeParts[1];
+                    Task event = new Event(name, startTime, endTime);
                     tasks.add(event);
                     printCf("The event is going to be a real splash!", event,
                             tasks.size());
@@ -106,9 +111,9 @@ public class MightyDuck {
 
     private static void printCf(String message, Task task, int size) {
         System.out.printf("""
+                        %s
                             %s
-                                %s
-                            You have %d task%s in the list.
+                        You have %d task%s in the list.
                         """,
                 message, task, size, size == 1 ? "" : "s");
     }

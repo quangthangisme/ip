@@ -1,0 +1,16 @@
+list
+todo todotest
+list
+deadline dltest /by dl
+list
+event eventtest /from fromtime /to totime
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 1
+unmark 2
+unmark 3
+list
+bye

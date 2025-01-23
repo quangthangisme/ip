@@ -1,7 +1,61 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+================================================================
+Greetings, citizens of Duckville! This is Mighty Duck!
+How can I serve you today?
 
+Woo-hoo! There are no tasks for you currently. Enjoy a good day, citizen!
+
+Don't duck the todo list!
+    [T][ ] todotest
+You have 1 task in the list.
+
+Here are the tasks in your list:
+    1.[T][ ] todotest
+
+The deadline will come quack-ly!
+    [D][ ] dltest (by: dl)
+You have 2 tasks in the list.
+
+Here are the tasks in your list:
+    1.[T][ ] todotest
+    2.[D][ ] dltest (by: dl)
+
+The event is going to be a real splash!
+    [E][ ] eventtest (from: fromtime to: totime)
+You have 3 tasks in the list.
+
+Here are the tasks in your list:
+    1.[T][ ] todotest
+    2.[D][ ] dltest (by: dl)
+    3.[E][ ] eventtest (from: fromtime to: totime)
+
+Quack-cellent job, citizen! The task is completed.
+    [T][X] todotest
+
+Quack-cellent job, citizen! The task is completed.
+    [D][X] dltest (by: dl)
+
+Quack-cellent job, citizen! The task is completed.
+    [E][X] eventtest (from: fromtime to: totime)
+
+Here are the tasks in your list:
+    1.[T][X] todotest
+    2.[D][X] dltest (by: dl)
+    3.[E][X] eventtest (from: fromtime to: totime)
+
+No worries! Waddle at your own pace.
+    [T][ ] todotest
+
+No worries! Waddle at your own pace.
+    [D][ ] dltest (by: dl)
+
+No worries! Waddle at your own pace.
+    [E][ ] eventtest (from: fromtime to: totime)
+
+Here are the tasks in your list:
+    1.[T][ ] todotest
+    2.[D][ ] dltest (by: dl)
+    3.[E][ ] eventtest (from: fromtime to: totime)
+
+Farewell, citizens of Duckville!
+This is Mighty Duck, flying off to new adventures!
+================================================================
