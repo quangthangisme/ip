@@ -1,4 +1,5 @@
 import data.TaskManager;
+import data.exception.InvalidValueException;
 import data.task.Deadline;
 import data.task.Event;
 import data.task.Task;
@@ -15,7 +16,8 @@ public enum Command {
     MARK {
         @Override
         public void execute(String argument, TaskManager taskManager,
-                            Printer printer) {
+                            Printer printer)
+                throws InvalidValueException {
             int index = parseIndex(argument);
             Task task = taskManager.markTask(index);
             printer.displayTaskMarked(task, true);
@@ -24,7 +26,8 @@ public enum Command {
     UNMARK {
         @Override
         public void execute(String argument, TaskManager taskManager,
-                            Printer printer) {
+                            Printer printer)
+                throws InvalidValueException {
             int index = parseIndex(argument);
             Task task = taskManager.unmarkTask(index);
             printer.displayTaskMarked(task, false);
@@ -33,9 +36,10 @@ public enum Command {
     TODO {
         @Override
         public void execute(String argument, TaskManager taskManager,
-                            Printer printer) {
+                            Printer printer)
+                throws InvalidValueException {
             if (argument.isBlank()) {
-                throw new IllegalArgumentException("A todo task must have " +
+                throw new InvalidValueException("A todo task must have " +
                         "a description!");
             }
             Task todo = new ToDo(argument);
@@ -46,10 +50,11 @@ public enum Command {
     DEADLINE {
         @Override
         public void execute(String argument, TaskManager taskManager,
-                            Printer printer) {
+                            Printer printer)
+                throws InvalidValueException {
             String[] parts = argument.split(" /by ", 2);
             if (parts.length < 2) {
-                throw new IllegalArgumentException("Please use: " +
+                throw new InvalidValueException("Please use: " +
                         "deadline <name> /by <deadline>");
             }
             Task deadline = new Deadline(parts[0], parts[1]);
@@ -60,10 +65,11 @@ public enum Command {
     EVENT {
         @Override
         public void execute(String argument, TaskManager taskManager,
-                            Printer printer) {
+                            Printer printer)
+                throws InvalidValueException {
             String[] parts = argument.split(" /from ", 2);
             if (parts.length < 2 || !parts[1].contains(" /to ")) {
-                throw new IllegalArgumentException("Please use: " +
+                throw new InvalidValueException("Please use: " +
                         "event <name> /from <start> /to <end>");
             }
             String[] times = parts[1].split(" /to ", 2);
@@ -75,7 +81,8 @@ public enum Command {
     DELETE {
         @Override
         public void execute(String argument, TaskManager taskManager,
-                Printer printer) {
+                            Printer printer)
+                throws InvalidValueException {
             int index = parseIndex(argument);
             Task task = taskManager.deleteTask(index);
             printer.displayTaskDeleted(task, taskManager.getTaskCount());
@@ -83,13 +90,14 @@ public enum Command {
     };
 
     public abstract void execute(String argument, TaskManager taskManager,
-                                 Printer printer);
+                                 Printer printer)
+            throws InvalidValueException;
 
-    protected int parseIndex(String argument) {
+    protected int parseIndex(String argument) throws InvalidValueException {
         try {
             return Integer.parseInt(argument) - 1;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("The task number is invalid: "
+            throw new InvalidValueException("The task number is invalid: "
                     + argument);
         }
     }

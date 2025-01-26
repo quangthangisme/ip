@@ -1,4 +1,5 @@
 import data.TaskManager;
+import data.exception.InvalidValueException;
 import storage.Storage;
 import storage.exception.InvalidStoragePathException;
 import storage.exception.StorageLoadException;
@@ -14,10 +15,10 @@ public class MightyDuck {
     private Scanner scanner;
 
     public static void main(String[] args) {
-        new MightyDuck().run(args);
+        new MightyDuck().run();
     }
 
-    public void run(String[] args) {
+    public void run() {
         start();
 
         while (true) {
@@ -34,15 +35,13 @@ public class MightyDuck {
 
             try {
                 Command command = Command.valueOf(commandStr);
-                try {
-                    command.execute(argument, taskManager, printer);
-                    storage.save(taskManager);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Something's a-fowl! " + e.getMessage());
-                } catch (StorageWriteException e) {
-                    printer.printSavingFailedMessage();
-                    throw new RuntimeException(e);
-                }
+                command.execute(argument, taskManager, printer);
+                storage.save(taskManager);
+            } catch (InvalidValueException e) {
+                System.out.println("Something's a-fowl! " + e.getMessage());
+            } catch (StorageWriteException e) {
+                printer.printSavingFailedMessage();
+                throw new RuntimeException(e);
             } catch (IllegalArgumentException e) {
                 System.out.println("A wild goose chase! I can't help " +
                         "you with that.");
