@@ -1,14 +1,13 @@
 package storage;
 
 import data.TaskManager;
-import data.exception.InvalidValueException;
-import data.task.Deadline;
-import data.task.Event;
+import exception.InvalidValueException;
+import data.task.type.Deadline;
+import data.task.type.Event;
 import data.task.Task;
-import data.task.ToDo;
-import storage.exception.StorageLoadException;
+import data.task.type.ToDo;
+import exception.StorageLoadException;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

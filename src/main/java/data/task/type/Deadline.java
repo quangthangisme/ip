@@ -1,6 +1,7 @@
-package data.task;
+package data.task.type;
 
-import data.exception.InvalidValueException;
+import data.task.Task;
+import exception.InvalidValueException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +31,7 @@ public class Deadline extends Task {
                 + " (by " + this.deadline.format(formatter) + ")";
     }
 
+    @Override
     public List<String> encodedAddedInfo() {
         return List.of(this.deadline.format(formatter));
     }

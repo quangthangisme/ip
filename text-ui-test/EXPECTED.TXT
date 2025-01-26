@@ -1,82 +1,86 @@
-================================================================
+============================================================
 Greetings, citizens of Duckville! This is Mighty Duck!
 How can I serve you today?
 
 > Woo-hoo! There are no tasks currently. Enjoy your day, citizen!
 
-> A wild goose chase! I can't help you with that.
+> Something's a-fowl! This is a wild goose chase!
 
-> Something's a-fowl! A todo task must have a description!
-
-> Let's get pro-duck-tive!
-    [T][ ] todotest
-You now have 1 task.
-
-> Here are the tasks in your list:
-    1. [T][ ] todotest
-
-> Something's a-fowl! Please use: deadline <name> /by <deadline>
+> Something's a-fowl! Please use the correct format: todo <name>
 
 > Let's get pro-duck-tive!
-    [D][ ] dltest (by: dl)
-You now have 2 tasks.
+	1. [T][ ] todotest
 
 > Here are the tasks in your list:
-    1. [T][ ] todotest
-    2. [D][ ] dltest (by: dl)
+	1. [T][ ] todotest
 
-> Something's a-fowl! Please use: event <name> /from <start> /to <end>
+> Something's a-fowl! Please use the correct format: deadline <name> /by <time>
+
+> Something's a-fowl! Cannot parse the time format! Expected 'yyyy-MM-dd HH:mm'.
 
 > Let's get pro-duck-tive!
-    [E][ ] eventtest (from: fromtime to: totime)
-You now have 3 tasks.
+	2. [D][ ] dltest (by 2025-01-26 12:20)
 
 > Here are the tasks in your list:
-    1. [T][ ] todotest
-    2. [D][ ] dltest (by: dl)
-    3. [E][ ] eventtest (from: fromtime to: totime)
+	1. [T][ ] todotest
+	2. [D][ ] dltest (by 2025-01-26 12:20)
+
+> Something's a-fowl! Please use the correct format: event <name> /from <time> /to <time>
+
+> Something's a-fowl! Cannot parse the time format! Expected 'yyyy-MM-dd HH:mm'.
+
+> Something's a-fowl! The end time must be after the start time!
+
+> Let's get pro-duck-tive!
+	3. [E][ ] eventtest (from 2025-01-26 12:20 to 2025-01-27 12:20)
+
+> Here are the tasks in your list:
+	1. [T][ ] todotest
+	2. [D][ ] dltest (by 2025-01-26 12:20)
+	3. [E][ ] eventtest (from 2025-01-26 12:20 to 2025-01-27 12:20)
 
 > Quack-cellent job, citizen! The task is completed.
-    [T][X] todotest
+	1. [T][X] todotest
 
 > Quack-cellent job, citizen! The task is completed.
-    [D][X] dltest (by: dl)
+	2. [D][X] dltest (by 2025-01-26 12:20)
 
 > Quack-cellent job, citizen! The task is completed.
-    [E][X] eventtest (from: fromtime to: totime)
+	3. [E][X] eventtest (from 2025-01-26 12:20 to 2025-01-27 12:20)
 
 > Something's a-fowl! The task number is out of range!
 
 > Here are the tasks in your list:
-    1. [T][X] todotest
-    2. [D][X] dltest (by: dl)
-    3. [E][X] eventtest (from: fromtime to: totime)
+	1. [T][X] todotest
+	2. [D][X] dltest (by 2025-01-26 12:20)
+	3. [E][X] eventtest (from 2025-01-26 12:20 to 2025-01-27 12:20)
+
+> Something's a-fowl! The task number is out of range!
 
 > No worries! Waddle at your own pace.
-    [T][ ] todotest
+	1. [T][ ] todotest
 
 > No worries! Waddle at your own pace.
-    [D][ ] dltest (by: dl)
+	2. [D][ ] dltest (by 2025-01-26 12:20)
 
 > No worries! Waddle at your own pace.
-    [E][ ] eventtest (from: fromtime to: totime)
+	3. [E][ ] eventtest (from 2025-01-26 12:20 to 2025-01-27 12:20)
 
 > Here are the tasks in your list:
-    1. [T][ ] todotest
-    2. [D][ ] dltest (by: dl)
-    3. [E][ ] eventtest (from: fromtime to: totime)
+	1. [T][ ] todotest
+	2. [D][ ] dltest (by 2025-01-26 12:20)
+	3. [E][ ] eventtest (from 2025-01-26 12:20 to 2025-01-27 12:20)
 
 > Something's a-fowl! The task number is out of range!
 
 > One less thing to pond-er about!
-    [D][ ] dltest (by: dl)
-You now have 2 tasks.
+	2. [D][ ] dltest (by 2025-01-26 12:20)
 
 > Here are the tasks in your list:
-    1. [T][ ] todotest
-    2. [E][ ] eventtest (from: fromtime to: totime)
+	1. [T][ ] todotest
+	2. [E][ ] eventtest (from 2025-01-26 12:20 to 2025-01-27 12:20)
 
 > Farewell, citizens of Duckville!
 This is Mighty Duck, flying off to new adventures!
-================================================================
+============================================================
 

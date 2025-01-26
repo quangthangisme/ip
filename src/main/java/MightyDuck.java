@@ -1,18 +1,22 @@
+import command.Command;
+import command.CommandResult;
+import command.Parser;
 import data.TaskManager;
-import data.exception.InvalidValueException;
+import exception.InvalidCommandException;
+import exception.InvalidValueException;
 import storage.Storage;
-import storage.exception.InvalidStoragePathException;
-import storage.exception.StorageLoadException;
-import storage.exception.StorageWriteException;
-
-import java.util.*;
+import exception.InvalidStoragePathException;
+import exception.StorageLoadException;
+import exception.StorageWriteException;
+import ui.Ui;
 
 public class MightyDuck {
     private static final String STORAGE_PATH = "./data/mightyduck.txt";
+
     private Storage storage;
     private TaskManager taskManager;
-    private Printer printer;
-    private Scanner scanner;
+    private Ui ui;
+    private Parser parser;
 
     public static void main(String[] args) {
         new MightyDuck().run();
@@ -22,45 +26,34 @@ public class MightyDuck {
         start();
 
         while (true) {
-            System.out.print("> ");
-            String input = scanner.nextLine().trim();
-            String[] parts = input.split(" ", 2);
-            String commandStr = parts[0].toUpperCase();
-            String argument = parts.length > 1 ? parts[1] : "";
-
-            if ("BYE".equals(commandStr)) {
-                printer.printFarewellMessage();
-                break;
-            }
-
             try {
-                Command command = Command.valueOf(commandStr);
-                command.execute(argument, taskManager, printer);
+                Command command = parser.parse(ui.readCommand());
+                CommandResult commandResult = command.execute();
                 storage.save(taskManager);
-            } catch (InvalidValueException e) {
-                System.out.println("Something's a-fowl! " + e.getMessage());
+                ui.displayCommandResult(commandResult);
+                if (command.isBye()) {
+                    break;
+                }
             } catch (StorageWriteException e) {
-                printer.printSavingFailedMessage();
+                ui.printSavingFailedMessage();
                 throw new RuntimeException(e);
-            } catch (IllegalArgumentException e) {
-                System.out.println("A wild goose chase! I can't help " +
-                        "you with that.");
+            } catch (InvalidValueException | InvalidCommandException e) {
+                ui.printException(e.getMessage());
             }
-
             System.out.println();
         }
     }
 
     private void start() {
-        this.printer = new Printer();
+        this.ui = new Ui();
         try {
             this.storage = new Storage(STORAGE_PATH);
             this.taskManager = this.storage.load();
-            this.scanner = new Scanner(System.in);
-            printer.printWelcomeMessage();
+            this.parser = new Parser(this.taskManager);
+            ui.printWelcomeMessage();
 
         } catch (InvalidStoragePathException | StorageLoadException e) {
-            printer.printInitFailedMessage();
+            ui.printInitFailedMessage();
             throw new RuntimeException(e);
         }
     }

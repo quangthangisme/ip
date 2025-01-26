@@ -1,4 +1,6 @@
-package data.task;
+package data.task.type;
+
+import data.task.Task;
 
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class ToDo extends Task {
         super(name, SIGNATURE);
     }
 
+    @Override
     public List<String> encodedAddedInfo() {
         return List.of();
     }

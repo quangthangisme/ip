@@ -1,9 +1,9 @@
 package storage;
 
 import data.TaskManager;
-import storage.exception.InvalidStoragePathException;
-import storage.exception.StorageLoadException;
-import storage.exception.StorageWriteException;
+import exception.InvalidStoragePathException;
+import exception.StorageLoadException;
+import exception.StorageWriteException;
 
 import java.io.IOException;
 import java.nio.file.Files;

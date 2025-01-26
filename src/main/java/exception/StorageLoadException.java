@@ -1,4 +1,4 @@
-package storage.exception;
+package exception;
 
 public class StorageLoadException extends Exception {
     public StorageLoadException(String message) {
