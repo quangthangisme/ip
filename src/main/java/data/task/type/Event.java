@@ -1,6 +1,7 @@
-package data.task;
+package data.task.type;
 
-import data.exception.InvalidValueException;
+import data.task.Task;
+import exception.InvalidValueException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,10 +34,11 @@ public class Event extends Task {
 
     public String toString() {
         return super.toString()
-                + " (from: " + this.startTime.format(formatter)
+                + " (from " + this.startTime.format(formatter)
                 + " to " + this.endTime.format(formatter) + ")";
     }
 
+    @Override
     public List<String> encodedAddedInfo() {
         return List.of(this.startTime.format(formatter),
                 this.endTime.format(formatter));

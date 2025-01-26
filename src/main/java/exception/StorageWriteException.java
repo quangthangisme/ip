@@ -1,4 +1,4 @@
-package storage.exception;
+package exception;
 
 public class StorageWriteException extends Exception {
     public StorageWriteException(String message) {

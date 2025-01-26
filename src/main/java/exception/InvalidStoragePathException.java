@@ -1,4 +1,4 @@
-package storage.exception;
+package exception;
 
 public class InvalidStoragePathException extends Exception {
     public InvalidStoragePathException(String message) {

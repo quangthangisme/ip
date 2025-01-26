@@ -36,5 +36,5 @@ public abstract class Task {
         return encodedTaskBuilder.toString();
     }
 
-    abstract List<String> encodedAddedInfo();
+    public abstract List<String> encodedAddedInfo();
 }
