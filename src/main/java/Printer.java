@@ -1,4 +1,4 @@
-import task.Task;
+import data.task.Task;
 
 import java.util.List;
 
@@ -44,6 +44,37 @@ public class Printer {
                         %s
                     """, task);
         }
+    }
+
+    public void printWelcomeMessage() {
+        System.out.println("""
+                ================================================================
+                Greetings, citizens of Duckville! This is Mighty Duck!
+                How can I serve you today?
+                """);
+    }
+
+    public void printFarewellMessage() {
+        System.out.println("""
+                Farewell, citizens of Duckville!
+                This is Mighty Duck, flying off to new adventures!
+                ================================================================
+                """);
+    }
+
+    public void printInitFailedMessage() {
+        System.out.println("""
+                ================================================================
+                Oh duck, the file loading failed.
+                ================================================================
+                """);
+    }
+
+    public void printSavingFailedMessage() {
+        System.out.println("""
+                Oh duck, the file saving failed.
+                ================================================================
+                """);
     }
 }
 

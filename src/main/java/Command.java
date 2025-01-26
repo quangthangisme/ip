@@ -1,7 +1,8 @@
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import data.TaskManager;
+import data.task.Deadline;
+import data.task.Event;
+import data.task.Task;
+import data.task.ToDo;
 
 public enum Command {
     LIST {
