@@ -1,12 +1,14 @@
 package storage;
 
 import data.TaskManager;
+import data.exception.InvalidValueException;
 import data.task.Deadline;
 import data.task.Event;
 import data.task.Task;
 import data.task.ToDo;
 import storage.exception.StorageLoadException;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,30 +28,36 @@ public class TaskDecoder {
             boolean isDone = parts[1].equals("1");
             String name = parts[2];
 
-            List<String> addedInfo = new ArrayList<>(Arrays.asList(parts).subList(3, parts.length));
+            List<String> addedInfo = new ArrayList<>(
+                    Arrays.asList(parts).subList(3, parts.length));
 
             Task task;
-            switch (signature) {
-                case Deadline.SIGNATURE -> {
-                    if (addedInfo.isEmpty()) {
-                        throw new StorageLoadException("Missing deadline " +
-                                "information for task: " + name);
+            try {
+                switch (signature) {
+                    case Deadline.SIGNATURE -> {
+                        if (addedInfo.isEmpty()) {
+                            throw new StorageLoadException("Missing deadline "
+                                    + "information for task: " + name);
+                        }
+                        String deadline = addedInfo.get(0);
+                        task = new Deadline(name, deadline);
                     }
-                    String deadline = addedInfo.get(0);
-                    task = new Deadline(name, deadline);
-                }
-                case ToDo.SIGNATURE -> task = new ToDo(name);
-                case Event.SIGNATURE -> {
-                    if (addedInfo.size() < 2) {
-                        throw new StorageLoadException("Missing event " +
-                                "time information for task: " + name);
+                    case ToDo.SIGNATURE -> task = new ToDo(name);
+                    case Event.SIGNATURE -> {
+                        if (addedInfo.size() < 2) {
+                            throw new StorageLoadException("Missing event "
+                                    + "time information for task: " + name);
+                        }
+                        String startTime = addedInfo.get(0);
+                        String endTime = addedInfo.get(1);
+                        task = new Event(name, startTime, endTime);
                     }
-                    String startTime = addedInfo.get(0);
-                    String endTime = addedInfo.get(1);
-                    task = new Event(name, startTime, endTime);
+                    default ->
+                            throw new StorageLoadException("Invalid task type: "
+                                    + signature);
                 }
-                default -> throw new StorageLoadException("Invalid task type: "
-                        + signature);
+            } catch (InvalidValueException e) {
+                throw new StorageLoadException(e.getMessage());
             }
 
             if (isDone) {
