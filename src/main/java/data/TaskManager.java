@@ -1,4 +1,6 @@
-import task.Task;
+package data;
+
+import data.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +46,9 @@ public class TaskManager {
                     "out of range!");
         }
         return this.tasks.remove(index);
+    }
+
+    public List<String> encodeTasks() {
+        return this.tasks.stream().map(Task::encode).toList();
     }
 }

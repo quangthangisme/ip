@@ -1,12 +1,24 @@
+import data.TaskManager;
+import storage.Storage;
+import storage.exception.InvalidStoragePathException;
+import storage.exception.StorageLoadException;
+import storage.exception.StorageWriteException;
+
 import java.util.*;
 
 public class MightyDuck {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
-        Printer taskView = new Printer();
+    private static final String STORAGE_PATH = "./data/mightyduck.txt";
+    private Storage storage;
+    private TaskManager taskManager;
+    private Printer printer;
+    private Scanner scanner;
 
-        printWelcomeMessage();
+    public static void main(String[] args) {
+        new MightyDuck().run(args);
+    }
+
+    public void run(String[] args) {
+        start();
 
         while (true) {
             System.out.print("> ");
@@ -16,16 +28,20 @@ public class MightyDuck {
             String argument = parts.length > 1 ? parts[1] : "";
 
             if ("BYE".equals(commandStr)) {
-                printFarewellMessage();
+                printer.printFarewellMessage();
                 break;
             }
 
             try {
                 Command command = Command.valueOf(commandStr);
                 try {
-                    command.execute(argument, taskManager, taskView);
+                    command.execute(argument, taskManager, printer);
+                    storage.save(taskManager);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Something's a-fowl! " + e.getMessage());
+                } catch (StorageWriteException e) {
+                    printer.printSavingFailedMessage();
+                    throw new RuntimeException(e);
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("A wild goose chase! I can't help " +
@@ -36,19 +52,17 @@ public class MightyDuck {
         }
     }
 
-    private static void printWelcomeMessage() {
-        System.out.println("""
-                ================================================================
-                Greetings, citizens of Duckville! This is Mighty Duck!
-                How can I serve you today?
-                """);
-    }
+    private void start() {
+        this.printer = new Printer();
+        try {
+            this.storage = new Storage(STORAGE_PATH);
+            this.taskManager = this.storage.load();
+            this.scanner = new Scanner(System.in);
+            printer.printWelcomeMessage();
 
-    private static void printFarewellMessage() {
-        System.out.println("""
-                Farewell, citizens of Duckville!
-                This is Mighty Duck, flying off to new adventures!
-                ================================================================
-                """);
+        } catch (InvalidStoragePathException | StorageLoadException e) {
+            printer.printInitFailedMessage();
+            throw new RuntimeException(e);
+        }
     }
 }
