@@ -20,7 +20,7 @@ public class Messages {
             "Let's get pro-duck-tive!";
 
     public static final String INVALID_COMMAND =
-            "This is a wild goose chase!";
+            "The command is quack! I cannot understand that.";
 
     public static final String WRONG_COMMAND_FORMAT =
             "Please use the correct format: %s";
@@ -69,4 +69,10 @@ public class Messages {
 
     public static final String INVALID_ENCODED_FORMAT =
             "Invalid encoded task format: %s";
+
+    public static final String FIND =
+            "Here's the matching tasks:";
+
+    public static final String EMPTY_FIND =
+            "This is a wild goose chase! I cannot find anything.";
 }

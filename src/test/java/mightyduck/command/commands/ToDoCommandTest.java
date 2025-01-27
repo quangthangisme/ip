@@ -20,8 +20,7 @@ public class ToDoCommandTest {
     }
 
     @Test
-    void execute_validArguments_addsDeadlineTask()
-            throws InvalidValueException {
+    void execute_validArguments_addsDeadlineTask() throws InvalidValueException {
         assertEquals(0, taskManager.getTasks().size());
 
         String[] arguments = {"Project"};

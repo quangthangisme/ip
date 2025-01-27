@@ -90,6 +90,16 @@ public class TaskManagerTest {
     }
 
     @Test
+    void searchKeyword_success() {
+        Task task1 = new ToDo("task 1");
+        Task task2 = new ToDo("task 2");
+        taskManager.addTask(task1);
+        taskManager.addTask(task2);
+
+        assertEquals(2, taskManager.searchKeyword("task").size());
+    }
+
+    @Test
     void encodeTasks_success() {
         Task task1 = new ToDo("task 1");
         Task task2 = new ToDo("task 2");

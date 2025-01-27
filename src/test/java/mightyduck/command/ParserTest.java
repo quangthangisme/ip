@@ -66,6 +66,12 @@ public class ParserTest {
     }
 
     @Test
+    void parse_findCommand_success() throws InvalidCommandException {
+        Command command = parser.parse("find hello");
+        assertInstanceOf(FindCommand.class, command);
+    }
+
+    @Test
     void parse_invalidCommand_throwsException() {
         Exception exception = assertThrows(InvalidCommandException.class,
                 () -> parser.parse("invalidCommand"));
@@ -138,5 +144,13 @@ public class ParserTest {
                 () -> parser.parse("event /from 10pm /to 11pm"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
                 EventCommand.COMMAND_FORMAT), exception.getMessage());
+    }
+
+    @Test
+    void parse_findCommandMissingWord_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class,
+                () -> parser.parse("find"));
+        assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
+                FindCommand.COMMAND_FORMAT), exception.getMessage());
     }
 }

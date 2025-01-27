@@ -1,9 +1,12 @@
 package mightyduck.command;
 
+import java.util.List;
+
 import mightyduck.command.commands.ByeCommand;
 import mightyduck.command.commands.DeadlineCommand;
 import mightyduck.command.commands.DeleteCommand;
 import mightyduck.command.commands.EventCommand;
+import mightyduck.command.commands.FindCommand;
 import mightyduck.command.commands.ListCommand;
 import mightyduck.command.commands.MarkCommand;
 import mightyduck.command.commands.ToDoCommand;
@@ -11,8 +14,6 @@ import mightyduck.command.commands.UnmarkCommand;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
 import mightyduck.messages.Messages;
-
-import java.util.List;
 
 public class Parser {
     private final TaskManager taskManager;
@@ -29,40 +30,46 @@ public class Parser {
         String commandStr = parts[0];
         String argumentsStr = parts.length > 1 ? parts[1] : "";
 
-        return switch (commandStr) {
-            case ByeCommand.COMMAND_WORD -> new ByeCommand(this.taskManager);
-            case ListCommand.COMMAND_WORD -> new ListCommand(this.taskManager);
-            case MarkCommand.COMMAND_WORD -> {
-                int index = parseIndex(argumentsStr);
-                yield new MarkCommand(this.taskManager, index);
-            }
-            case UnmarkCommand.COMMAND_WORD -> {
-                int index = parseIndex(argumentsStr);
-                yield new UnmarkCommand(this.taskManager, index);
-            }
-            case DeleteCommand.COMMAND_WORD -> {
-                int index = parseIndex(argumentsStr);
-                yield new DeleteCommand(this.taskManager, index);
-            }
-            case ToDoCommand.COMMAND_WORD -> {
-                String[] todoArguments = parseArguments(argumentsStr,
-                        ToDoCommand.COMMAND_FORMAT, ToDoCommand.KEYWORDS);
-                yield new ToDoCommand(this.taskManager, todoArguments);
-            }
-            case DeadlineCommand.COMMAND_WORD -> {
-                String[] dlArguments = parseArguments(argumentsStr,
-                        DeadlineCommand.COMMAND_FORMAT,
-                        DeadlineCommand.KEYWORDS);
-                yield new DeadlineCommand(this.taskManager, dlArguments);
-            }
-            case EventCommand.COMMAND_WORD -> {
-                String[] eventArguments = parseArguments(argumentsStr,
-                        EventCommand.COMMAND_FORMAT, EventCommand.KEYWORDS);
-                yield new EventCommand(this.taskManager, eventArguments);
-            }
-            default ->
-                    throw new InvalidCommandException(Messages.INVALID_COMMAND);
-        };
+        switch (commandStr) {
+        case ByeCommand.COMMAND_WORD:
+            return new ByeCommand(this.taskManager);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand(this.taskManager);
+        case MarkCommand.COMMAND_WORD: {
+            int index = parseIndex(argumentsStr);
+            return new MarkCommand(this.taskManager, index);
+        }
+        case UnmarkCommand.COMMAND_WORD: {
+            int index = parseIndex(argumentsStr);
+            return new UnmarkCommand(this.taskManager, index);
+        }
+        case DeleteCommand.COMMAND_WORD: {
+            int index = parseIndex(argumentsStr);
+            return new DeleteCommand(this.taskManager, index);
+        }
+        case ToDoCommand.COMMAND_WORD: {
+            String[] todoArguments = parseArguments(argumentsStr, ToDoCommand.COMMAND_FORMAT,
+                    ToDoCommand.KEYWORDS);
+            return new ToDoCommand(this.taskManager, todoArguments);
+        }
+        case DeadlineCommand.COMMAND_WORD: {
+            String[] dlArguments = parseArguments(argumentsStr, DeadlineCommand.COMMAND_FORMAT,
+                    DeadlineCommand.KEYWORDS);
+            return new DeadlineCommand(this.taskManager, dlArguments);
+        }
+        case EventCommand.COMMAND_WORD: {
+            String[] eventArguments = parseArguments(argumentsStr, EventCommand.COMMAND_FORMAT,
+                    EventCommand.KEYWORDS);
+            return new EventCommand(this.taskManager, eventArguments);
+        }
+        case FindCommand.COMMAND_WORD: {
+            String[] findArguments = parseArguments(argumentsStr, FindCommand.COMMAND_FORMAT,
+                    FindCommand.KEYWORDS);
+            return new FindCommand(this.taskManager, findArguments);
+        }
+        default:
+            throw new InvalidCommandException(Messages.INVALID_COMMAND);
+        }
     }
 
     private int parseIndex(String argumentsStr) throws InvalidCommandException {

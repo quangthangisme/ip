@@ -41,5 +41,3 @@ public class MarkCommandTest {
         assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
     }
 }
-
-
