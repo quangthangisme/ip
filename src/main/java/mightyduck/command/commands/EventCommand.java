@@ -24,7 +24,7 @@ public class EventCommand extends Command {
     /**
      * The format of the "event" command.
      */
-    public static final String COMMAND_FORMAT = "event <name> " + "/from <time> /to <time>";
+    public static final String COMMAND_FORMAT = "event <name> /from <time> /to <time>";
 
     /**
      * The list of keywords required for parsing the "event" command.

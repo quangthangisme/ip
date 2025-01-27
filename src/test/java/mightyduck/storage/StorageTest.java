@@ -39,8 +39,7 @@ class StorageTest {
 
     @Test
     void constructor_invalidFilePath_throwsInvalidStoragePathException() {
-        assertThrows(InvalidStoragePathException.class,
-                () -> new Storage("invalid_path"));
+        assertThrows(InvalidStoragePathException.class, () -> new Storage("invalid_path"));
     }
 
     @Test
@@ -64,8 +63,7 @@ class StorageTest {
         TaskManager taskManager = new TaskManager();
         taskManager.addTask(new ToDo("task"));
 
-        assertThrows(StorageWriteException.class,
-                () -> storage.save(taskManager));
+        assertThrows(StorageWriteException.class, () -> storage.save(taskManager));
         assertTrue(file.setWritable(true));
     }
 

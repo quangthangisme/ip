@@ -25,8 +25,7 @@ public class EventCommandTest {
             throws InvalidValueException {
         assertEquals(0, taskManager.getTasks().size());
 
-        String[] arguments = {"Project", "2025-02-01 10:00",
-                "2025-02-01 12:00"};
+        String[] arguments = {"Project", "2025-02-01 10:00", "2025-02-01 12:00"};
         EventCommand command = new EventCommand(taskManager, arguments);
         command.execute();
 
@@ -36,8 +35,7 @@ public class EventCommandTest {
 
     @Test
     void execute_invalidTimes_throwsException() {
-        String[] arguments = {"Project", "2025-25-01 10:00",
-                "2025-02-01 12:00"};
+        String[] arguments = {"Project", "2025-25-01 10:00", "2025-02-01 12:00"};
         EventCommand command = new EventCommand(taskManager, arguments);
 
         InvalidValueException exception =
@@ -47,8 +45,7 @@ public class EventCommandTest {
 
     @Test
     void execute_endTimeBeforeStartTime_throwsException() {
-        String[] arguments = {"Project", "2025-02-01 10:00",
-                "2025-02-01 09:00"};
+        String[] arguments = {"Project", "2025-02-01 10:00", "2025-02-01 09:00"};
         EventCommand command = new EventCommand(taskManager, arguments);
 
         InvalidValueException exception =

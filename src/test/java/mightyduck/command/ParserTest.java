@@ -77,75 +77,75 @@ public class ParserTest {
 
     @Test
     void parse_invalidCommand_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("invalidCommand"));
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("invalidCommand"));
         assertEquals(Messages.INVALID_COMMAND, exception.getMessage());
     }
 
     @Test
     void parse_emptyInput_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse(" "));
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse(" "));
         assertEquals(Messages.INVALID_COMMAND, exception.getMessage());
     }
 
     @Test
-    void parse_markCommand_missingIndex_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("mark"));
+    void parse_markCommandMissingIndex_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("mark"));
         assertEquals(Messages.WRONG_NUMBER_FORMAT, exception.getMessage());
     }
 
     @Test
-    void parse_unmarkCommand_invalidIndex_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("unmark abc"));
+    void parse_unmarkCommandInvalidIndex_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("unmark abc"));
         assertEquals(Messages.WRONG_NUMBER_FORMAT, exception.getMessage());
     }
 
     @Test
-    void parse_deleteCommand_invalidIndex_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("delete xyz"));
+    void parse_deleteCommandInvalidIndex_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("delete xyz"));
         assertEquals(Messages.WRONG_NUMBER_FORMAT, exception.getMessage());
     }
 
     @Test
-    void parse_todoCommand_missingDescription_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("todo"));
+    void parse_todoCommandMissingDescription_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("todo"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
                 ToDoCommand.COMMAND_FORMAT), exception.getMessage());
     }
 
     @Test
-    void parse_deadlineCommand_missingKeyword_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("deadline submit report"));
+    void parse_deadlineCommandMissingKeyword_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("deadline submit report"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
                 DeadlineCommand.COMMAND_FORMAT), exception.getMessage());
     }
 
     @Test
-    void parse_deadlineCommand_missingName_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("deadline /by 10pm"));
+    void parse_deadlineCommandMissingName_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("deadline /by 10pm"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
                 DeadlineCommand.COMMAND_FORMAT), exception.getMessage());
     }
 
     @Test
-    void parse_eventCommand_missingKeyword_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("event meeting"));
+    void parse_eventCommandMissingKeyword_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("event meeting"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
                 EventCommand.COMMAND_FORMAT), exception.getMessage());
     }
 
     @Test
-    void parse_eventCommand_missingName_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("event /from 10pm /to 11pm"));
+    void parse_eventCommandMissingName_throwsException() {
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("event /from 10pm /to 11pm"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
                 EventCommand.COMMAND_FORMAT), exception.getMessage());
     }

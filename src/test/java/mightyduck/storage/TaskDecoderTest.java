@@ -57,32 +57,28 @@ public class TaskDecoderTest {
                 "E\t1\tMeeting"
         );
 
-        assertThrows(StorageLoadException.class,
-                () -> TaskDecoder.decodeTasks(encodedTasks));
+        assertThrows(StorageLoadException.class, () -> TaskDecoder.decodeTasks(encodedTasks));
     }
 
     @Test
     void testDecodeTasks_invalidSignature() {
         List<String> encodedTasks = List.of("X\t1\tUnknown");
 
-        assertThrows(StorageLoadException.class,
-                () -> TaskDecoder.decodeTasks(encodedTasks));
+        assertThrows(StorageLoadException.class, () -> TaskDecoder.decodeTasks(encodedTasks));
     }
 
     @Test
     void testDecodeTasks_invalidCompletionStatus() {
         List<String> encodedTasks = List.of("T\t2\tTask");
 
-        assertThrows(StorageLoadException.class,
-                () -> TaskDecoder.decodeTasks(encodedTasks));
+        assertThrows(StorageLoadException.class, () -> TaskDecoder.decodeTasks(encodedTasks));
     }
 
     @Test
     void testDecodeTasks_incompleteEventInfo() {
         List<String> encodedTasks = List.of("E\t1\tEvent\t2025-01-28 10:00");
 
-        assertThrows(StorageLoadException.class,
-                () -> TaskDecoder.decodeTasks(encodedTasks));
+        assertThrows(StorageLoadException.class, () -> TaskDecoder.decodeTasks(encodedTasks));
     }
 }
 
