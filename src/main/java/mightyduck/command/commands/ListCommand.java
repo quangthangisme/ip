@@ -2,7 +2,7 @@ package mightyduck.command.commands;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
-import mightyduck.data.TaskManager;
+import mightyduck.data.task.TaskManager;
 import mightyduck.data.task.Task;
 import mightyduck.messages.Messages;
 import mightyduck.utils.Pair;

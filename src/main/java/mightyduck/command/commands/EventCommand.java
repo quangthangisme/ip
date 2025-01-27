@@ -2,7 +2,7 @@ package mightyduck.command.commands;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
-import mightyduck.data.TaskManager;
+import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.data.task.type.Event;
 import mightyduck.data.task.Task;
@@ -27,7 +27,8 @@ public class EventCommand extends Command {
     @Override
     public CommandResult execute() throws InvalidValueException {
         if (this.arguments.length != 3) {
-            throw new InvalidValueException(Messages.EMPTY_TODO);
+            throw new InvalidValueException(String.format(
+                    Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
         Task event = new Event(arguments[0], arguments[1], arguments[2]);
         int index = this.taskManager.addTask(event);

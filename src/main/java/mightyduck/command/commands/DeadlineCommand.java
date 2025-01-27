@@ -2,7 +2,7 @@ package mightyduck.command.commands;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
-import mightyduck.data.TaskManager;
+import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.data.task.type.Deadline;
 import mightyduck.data.task.Task;
@@ -26,7 +26,8 @@ public class DeadlineCommand extends Command {
     @Override
     public CommandResult execute() throws InvalidValueException {
         if (this.arguments.length != 2) {
-            throw new InvalidValueException(Messages.EMPTY_TODO);
+            throw new InvalidValueException(String.format(
+                    Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
         Task deadline = new Deadline(arguments[0], arguments[1]);
         int index = this.taskManager.addTask(deadline);

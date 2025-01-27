@@ -16,9 +16,6 @@ public class Messages {
     public static final String DELETE =
             "One less thing to pond-er about!";
 
-    public static final String EMPTY_TODO =
-            "A todo task must have a description!";
-
     public static final String ADD_TASK =
             "Let's get pro-duck-tive!";
 
@@ -63,4 +60,13 @@ public class Messages {
 
     public static final String OUT_OF_RANGE_INDEX =
             "The task number is out of range!";
+
+    public static final String END_TIME_BEFORE_START_TIME =
+            "The end time must be after the start time!";
+
+    public static final String FAILED_PARSE_TIME =
+            "I cannot parse the time format! Expected 'yyyy-MM-dd HH:mm'.";
+
+    public static final String INVALID_ENCODED_FORMAT =
+            "Invalid encoded task format: %s";
 }

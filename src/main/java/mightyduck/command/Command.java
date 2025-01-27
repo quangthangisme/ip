@@ -1,6 +1,6 @@
 package mightyduck.command;
 
-import mightyduck.data.TaskManager;
+import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
 
 public abstract class Command {

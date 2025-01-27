@@ -8,7 +8,7 @@ import mightyduck.command.commands.ListCommand;
 import mightyduck.command.commands.MarkCommand;
 import mightyduck.command.commands.ToDoCommand;
 import mightyduck.command.commands.UnmarkCommand;
-import mightyduck.data.TaskManager;
+import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
 import mightyduck.messages.Messages;
 

@@ -3,7 +3,7 @@ package mightyduck;
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
 import mightyduck.command.Parser;
-import mightyduck.data.TaskManager;
+import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.storage.Storage;

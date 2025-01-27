@@ -2,6 +2,7 @@ package mightyduck.data.task.type;
 
 import mightyduck.data.task.Task;
 import mightyduck.exception.InvalidValueException;
+import mightyduck.messages.Messages;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,8 +22,7 @@ public class Deadline extends Task {
         try {
             this.deadline = LocalDateTime.parse(deadline, formatter);
         } catch (DateTimeParseException e) {
-            throw new InvalidValueException("Cannot parse the time format! " +
-                    "Expected 'yyyy-MM-dd HH:mm'.");
+            throw new InvalidValueException(Messages.FAILED_PARSE_TIME);
         }
     }
 

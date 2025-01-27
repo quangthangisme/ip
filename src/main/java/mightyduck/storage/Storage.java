@@ -1,6 +1,6 @@
 package mightyduck.storage;
 
-import mightyduck.data.TaskManager;
+import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.StorageLoadException;
 import mightyduck.exception.StorageWriteException;
