@@ -1,13 +1,23 @@
 package mightyduck.command;
 
-import mightyduck.command.commands.*;
-import mightyduck.data.task.TaskManager;
-import mightyduck.exception.InvalidCommandException;
-import mightyduck.messages.Messages;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import mightyduck.command.commands.ByeCommand;
+import mightyduck.command.commands.DeadlineCommand;
+import mightyduck.command.commands.DeleteCommand;
+import mightyduck.command.commands.EventCommand;
+import mightyduck.command.commands.ListCommand;
+import mightyduck.command.commands.MarkCommand;
+import mightyduck.command.commands.ToDoCommand;
+import mightyduck.command.commands.UnmarkCommand;
+import mightyduck.data.task.TaskManager;
+import mightyduck.exception.InvalidCommandException;
+import mightyduck.messages.Messages;
 
 public class ParserTest {
     private Parser parser;

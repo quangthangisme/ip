@@ -1,18 +1,19 @@
 package mightyduck.command.commands;
 
-import mightyduck.data.task.TaskManager;
-import mightyduck.data.task.Task;
-import mightyduck.data.task.type.Deadline;
-import mightyduck.data.task.type.ToDo;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import mightyduck.data.task.Task;
+import mightyduck.data.task.TaskManager;
+import mightyduck.data.task.type.Deadline;
+import mightyduck.data.task.type.ToDo;
+import mightyduck.exception.InvalidValueException;
+import mightyduck.messages.Messages;
 
 public class UnmarkCommandTest {
     private TaskManager taskManager;
@@ -27,8 +28,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    void execute_validArguments_addsEventTask()
-            throws InvalidValueException {
+    void execute_validArguments_addsEventTask() throws InvalidValueException {
         assertTrue(taskManager.getTask(0).isMarked());
         UnmarkCommand command = new UnmarkCommand(taskManager, 0);
         command.execute();
