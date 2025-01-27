@@ -1,15 +1,15 @@
 package mightyduck.storage;
 
-import mightyduck.data.task.TaskManager;
-import mightyduck.exception.InvalidStoragePathException;
-import mightyduck.exception.StorageLoadException;
-import mightyduck.exception.StorageWriteException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import mightyduck.data.task.TaskManager;
+import mightyduck.exception.InvalidStoragePathException;
+import mightyduck.exception.StorageLoadException;
+import mightyduck.exception.StorageWriteException;
 
 public class Storage {
     public final Path path;

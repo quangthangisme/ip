@@ -1,20 +1,19 @@
 package mightyduck.data.task.type;
 
-import mightyduck.data.task.Task;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-public class Deadline extends Task {
-    private LocalDateTime deadline;
+import mightyduck.data.task.Task;
+import mightyduck.exception.InvalidValueException;
+import mightyduck.messages.Messages;
 
+public class Deadline extends Task {
     public static final String SIGNATURE = "D";
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final LocalDateTime deadline;
 
     public Deadline(String name, String deadline)
             throws InvalidValueException {

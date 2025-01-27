@@ -1,8 +1,8 @@
 package mightyduck.data.task.type;
 
-import mightyduck.data.task.Task;
-
 import java.util.List;
+
+import mightyduck.data.task.Task;
 
 public class ToDo extends Task {
     public static final String SIGNATURE = "T";

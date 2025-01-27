@@ -1,11 +1,11 @@
 package mightyduck.command.commands;
 
+import java.util.List;
+
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
 import mightyduck.data.task.TaskManager;
 import mightyduck.messages.Messages;
-
-import java.util.List;
 
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";

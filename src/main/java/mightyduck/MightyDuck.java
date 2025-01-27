@@ -5,11 +5,11 @@ import mightyduck.command.CommandResult;
 import mightyduck.command.Parser;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.storage.Storage;
 import mightyduck.exception.InvalidStoragePathException;
+import mightyduck.exception.InvalidValueException;
 import mightyduck.exception.StorageLoadException;
 import mightyduck.exception.StorageWriteException;
+import mightyduck.storage.Storage;
 import mightyduck.ui.Ui;
 
 public class MightyDuck {

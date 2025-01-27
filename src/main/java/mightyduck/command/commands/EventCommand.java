@@ -1,20 +1,19 @@
 package mightyduck.command.commands;
 
+import java.util.List;
+
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
-import mightyduck.data.task.TaskManager;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.data.task.type.Event;
 import mightyduck.data.task.Task;
+import mightyduck.data.task.TaskManager;
+import mightyduck.data.task.type.Event;
+import mightyduck.exception.InvalidValueException;
 import mightyduck.messages.Messages;
 import mightyduck.utils.Pair;
 
-import java.util.List;
-
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
-    public static final String COMMAND_FORMAT = "event <name> " +
-            "/from <time> /to <time>";
+    public static final String COMMAND_FORMAT = "event <name> /from <time> /to <time>";
     public static final List<String> KEYWORDS = List.of("/from", "/to");
 
     private final String[] arguments;
@@ -43,5 +42,3 @@ public class EventCommand extends Command {
         return false;
     }
 }
-
-

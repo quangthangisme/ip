@@ -1,12 +1,12 @@
 package mightyduck.ui;
 
+import java.io.PrintStream;
+import java.util.Scanner;
+
 import mightyduck.command.CommandResult;
 import mightyduck.data.task.Task;
 import mightyduck.messages.Messages;
 import mightyduck.utils.Pair;
-
-import java.io.PrintStream;
-import java.util.Scanner;
 
 public class Ui {
     private final Scanner scanner;
@@ -29,7 +29,7 @@ public class Ui {
 
     public void displayCommandResult(CommandResult res) {
         this.printer.println(res.feedback());
-        for (Pair<Integer, Task> taskPair: res.tasks()) {
+        for (Pair<Integer, Task> taskPair : res.tasks()) {
             this.printer.println("\t" + (taskPair.index() + 1) + ". "
                     + taskPair.element());
         }

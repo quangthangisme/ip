@@ -1,14 +1,18 @@
 package mightyduck.data.task;
 
-import mightyduck.data.task.type.ToDo;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import mightyduck.data.task.type.ToDo;
+import mightyduck.exception.InvalidValueException;
+import mightyduck.messages.Messages;
 
 public class TaskManagerTest {
     private TaskManager taskManager;
@@ -37,8 +41,8 @@ public class TaskManagerTest {
 
     @Test
     void getTask_invalidIndex_throwsException() {
-        Exception exception = assertThrows(InvalidValueException.class,
-                () -> taskManager.getTask(0));
+        Exception exception = assertThrows(InvalidValueException.class, () ->
+                taskManager.getTask(0));
         assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
     }
 
@@ -61,15 +65,15 @@ public class TaskManagerTest {
 
     @Test
     void markTask_invalidIndex_throwsException() {
-        Exception exception = assertThrows(InvalidValueException.class,
-                () -> taskManager.markTask(0));
+        Exception exception = assertThrows(InvalidValueException.class, () ->
+                taskManager.markTask(0));
         assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
     }
 
     @Test
     void unmarkTask_invalidIndex_throwsException() {
-        Exception exception = assertThrows(InvalidValueException.class,
-                () -> taskManager.unmarkTask(0));
+        Exception exception = assertThrows(InvalidValueException.class, () ->
+                taskManager.unmarkTask(0));
         assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
     }
 
@@ -84,8 +88,8 @@ public class TaskManagerTest {
 
     @Test
     void deleteTask_invalidIndex_throwsException() {
-        Exception exception = assertThrows(InvalidValueException.class,
-                () -> taskManager.deleteTask(0));
+        Exception exception = assertThrows(InvalidValueException.class, () ->
+                taskManager.deleteTask(0));
         assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
     }
 

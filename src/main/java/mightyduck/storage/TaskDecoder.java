@@ -1,17 +1,17 @@
 package mightyduck.storage;
 
-import mightyduck.data.task.TaskManager;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.data.task.type.Deadline;
-import mightyduck.data.task.type.Event;
-import mightyduck.data.task.Task;
-import mightyduck.data.task.type.ToDo;
-import mightyduck.exception.StorageLoadException;
-import mightyduck.messages.Messages;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import mightyduck.data.task.Task;
+import mightyduck.data.task.TaskManager;
+import mightyduck.data.task.type.Deadline;
+import mightyduck.data.task.type.Event;
+import mightyduck.data.task.type.ToDo;
+import mightyduck.exception.InvalidValueException;
+import mightyduck.exception.StorageLoadException;
+import mightyduck.messages.Messages;
 
 public class TaskDecoder {
     public static TaskManager decodeTasks(List<String> encodedTasks)

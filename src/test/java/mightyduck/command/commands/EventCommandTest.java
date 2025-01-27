@@ -1,15 +1,16 @@
 package mightyduck.command.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import mightyduck.data.task.TaskManager;
 import mightyduck.data.task.type.Event;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.messages.Messages;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EventCommandTest {
     private TaskManager taskManager;
@@ -24,8 +25,7 @@ public class EventCommandTest {
             throws InvalidValueException {
         assertEquals(0, taskManager.getTasks().size());
 
-        String[] arguments = {"Project", "2025-02-01 10:00",
-                "2025-02-01 12:00"};
+        String[] arguments = {"Project", "2025-02-01 10:00", "2025-02-01 12:00"};
         EventCommand command = new EventCommand(taskManager, arguments);
         command.execute();
 
@@ -35,8 +35,7 @@ public class EventCommandTest {
 
     @Test
     void execute_invalidTimes_throwsException() {
-        String[] arguments = {"Project", "2025-25-01 10:00",
-                "2025-02-01 12:00"};
+        String[] arguments = {"Project", "2025-25-01 10:00", "2025-02-01 12:00"};
         EventCommand command = new EventCommand(taskManager, arguments);
 
         InvalidValueException exception =
@@ -46,8 +45,7 @@ public class EventCommandTest {
 
     @Test
     void execute_endTimeBeforeStartTime_throwsException() {
-        String[] arguments = {"Project", "2025-02-01 10:00",
-                "2025-02-01 09:00"};
+        String[] arguments = {"Project", "2025-02-01 10:00", "2025-02-01 09:00"};
         EventCommand command = new EventCommand(taskManager, arguments);
 
         InvalidValueException exception =

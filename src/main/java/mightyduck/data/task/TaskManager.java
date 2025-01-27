@@ -1,10 +1,10 @@
 package mightyduck.data.task;
 
-import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import mightyduck.exception.InvalidValueException;
+import mightyduck.messages.Messages;
 
 public class TaskManager {
     private final List<Task> tasks = new ArrayList<>();

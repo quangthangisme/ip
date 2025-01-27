@@ -3,9 +3,9 @@ package mightyduck.data.task;
 import java.util.List;
 
 public abstract class Task {
-    private String name;
+    private final String name;
     private boolean isDone;
-    private String signature;
+    private final String signature;
 
     public Task(String name, String signature) {
         this.name = name;

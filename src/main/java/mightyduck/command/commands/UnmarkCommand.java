@@ -1,14 +1,14 @@
 package mightyduck.command.commands;
 
+import java.util.List;
+
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
-import mightyduck.data.task.TaskManager;
 import mightyduck.data.task.Task;
+import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.messages.Messages;
 import mightyduck.utils.Pair;
-
-import java.util.List;
 
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
