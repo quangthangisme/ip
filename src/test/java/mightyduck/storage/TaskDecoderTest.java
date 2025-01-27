@@ -1,19 +1,23 @@
 package mightyduck.storage;
 
-import mightyduck.data.task.TaskManager;
-import mightyduck.data.task.type.Deadline;
-import mightyduck.data.task.type.Event;
-import mightyduck.data.task.Task;
-import mightyduck.data.task.type.ToDo;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.exception.StorageLoadException;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import mightyduck.data.task.Task;
+import mightyduck.data.task.TaskManager;
+import mightyduck.data.task.type.Deadline;
+import mightyduck.data.task.type.Event;
+import mightyduck.data.task.type.ToDo;
+import mightyduck.exception.InvalidValueException;
+import mightyduck.exception.StorageLoadException;
 
 public class TaskDecoderTest {
     @Test

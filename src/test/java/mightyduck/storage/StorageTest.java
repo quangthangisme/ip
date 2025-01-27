@@ -1,12 +1,10 @@
 package mightyduck.storage;
 
-import mightyduck.data.task.TaskManager;
-import mightyduck.data.task.type.ToDo;
-import mightyduck.exception.InvalidStoragePathException;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.exception.StorageLoadException;
-import mightyduck.exception.StorageWriteException;
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +12,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import mightyduck.data.task.TaskManager;
+import mightyduck.data.task.type.ToDo;
+import mightyduck.exception.InvalidStoragePathException;
+import mightyduck.exception.InvalidValueException;
+import mightyduck.exception.StorageLoadException;
+import mightyduck.exception.StorageWriteException;
 
 class StorageTest {
     private static final String TEST_FILE_PATH = "./data/test.txt";

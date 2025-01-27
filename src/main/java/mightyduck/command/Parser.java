@@ -1,5 +1,7 @@
 package mightyduck.command;
 
+import java.util.List;
+
 import mightyduck.command.commands.ByeCommand;
 import mightyduck.command.commands.DeadlineCommand;
 import mightyduck.command.commands.DeleteCommand;
@@ -12,15 +14,33 @@ import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
 import mightyduck.messages.Messages;
 
-import java.util.List;
-
+/**
+ * The {@code Parser} class is responsible for interpreting user input and converting it into
+ * executable {@link Command} objects.
+ */
 public class Parser {
+
+    /**
+     * The {@link TaskManager} used for managing tasks.
+     */
     private final TaskManager taskManager;
 
+    /**
+     * Constructs a {@code Parser} with the given {@link TaskManager}.
+     *
+     * @param taskManager The {@link TaskManager} to be used for managing tasks.
+     */
     public Parser(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
 
+    /**
+     * Parses the user input and converts it into a {@link Command} object.
+     *
+     * @param input The raw user input as a {@link String}.
+     * @return The corresponding {@link Command} object.
+     * @throws InvalidCommandException If the input is invalid or does not match any known command.
+     */
     public Command parse(String input) throws InvalidCommandException {
         String[] parts = input.trim().split(" ", 2);
         if (parts.length == 0) {
@@ -29,42 +49,52 @@ public class Parser {
         String commandStr = parts[0];
         String argumentsStr = parts.length > 1 ? parts[1] : "";
 
-        return switch (commandStr) {
-            case ByeCommand.COMMAND_WORD -> new ByeCommand(this.taskManager);
-            case ListCommand.COMMAND_WORD -> new ListCommand(this.taskManager);
-            case MarkCommand.COMMAND_WORD -> {
-                int index = parseIndex(argumentsStr);
-                yield new MarkCommand(this.taskManager, index);
-            }
-            case UnmarkCommand.COMMAND_WORD -> {
-                int index = parseIndex(argumentsStr);
-                yield new UnmarkCommand(this.taskManager, index);
-            }
-            case DeleteCommand.COMMAND_WORD -> {
-                int index = parseIndex(argumentsStr);
-                yield new DeleteCommand(this.taskManager, index);
-            }
-            case ToDoCommand.COMMAND_WORD -> {
-                String[] todoArguments = parseArguments(argumentsStr,
-                        ToDoCommand.COMMAND_FORMAT, ToDoCommand.KEYWORDS);
-                yield new ToDoCommand(this.taskManager, todoArguments);
-            }
-            case DeadlineCommand.COMMAND_WORD -> {
-                String[] dlArguments = parseArguments(argumentsStr,
-                        DeadlineCommand.COMMAND_FORMAT,
-                        DeadlineCommand.KEYWORDS);
-                yield new DeadlineCommand(this.taskManager, dlArguments);
-            }
-            case EventCommand.COMMAND_WORD -> {
-                String[] eventArguments = parseArguments(argumentsStr,
-                        EventCommand.COMMAND_FORMAT, EventCommand.KEYWORDS);
-                yield new EventCommand(this.taskManager, eventArguments);
-            }
-            default ->
-                    throw new InvalidCommandException(Messages.INVALID_COMMAND);
-        };
+        switch (commandStr) {
+        case ByeCommand.COMMAND_WORD:
+            return new ByeCommand(this.taskManager);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand(this.taskManager);
+        case MarkCommand.COMMAND_WORD: {
+            int index = parseIndex(argumentsStr);
+            return new MarkCommand(this.taskManager, index);
+        }
+        case UnmarkCommand.COMMAND_WORD: {
+            int index = parseIndex(argumentsStr);
+            return new UnmarkCommand(this.taskManager, index);
+        }
+        case DeleteCommand.COMMAND_WORD: {
+            int index = parseIndex(argumentsStr);
+            return new DeleteCommand(this.taskManager, index);
+        }
+        case ToDoCommand.COMMAND_WORD: {
+            String[] todoArguments =
+                    parseArguments(argumentsStr, ToDoCommand.COMMAND_FORMAT, ToDoCommand.KEYWORDS);
+            return new ToDoCommand(this.taskManager, todoArguments);
+        }
+        case DeadlineCommand.COMMAND_WORD: {
+            String[] dlArguments =
+                    parseArguments(argumentsStr, DeadlineCommand.COMMAND_FORMAT,
+                            DeadlineCommand.KEYWORDS);
+            return new DeadlineCommand(this.taskManager, dlArguments);
+        }
+        case EventCommand.COMMAND_WORD: {
+            String[] eventArguments =
+                    parseArguments(argumentsStr, EventCommand.COMMAND_FORMAT,
+                            EventCommand.KEYWORDS);
+            return new EventCommand(this.taskManager, eventArguments);
+        }
+        default:
+            throw new InvalidCommandException(Messages.INVALID_COMMAND);
+        }
     }
 
+    /**
+     * Parses the provided argument string to extract an index.
+     *
+     * @param argumentsStr The string containing the index argument.
+     * @return The zero-based index parsed from the argument string.
+     * @throws InvalidCommandException If the argument is not a valid number.
+     */
     private int parseIndex(String argumentsStr) throws InvalidCommandException {
         try {
             return Integer.parseInt(argumentsStr.trim()) - 1;
@@ -73,8 +103,17 @@ public class Parser {
         }
     }
 
-    private String[] parseArguments(String argumentsStr, String format,
-                                    List<String> keywords)
+    /**
+     * Parses the arguments string for a command, extracting arguments based on the specified format
+     * and keywords.
+     *
+     * @param argumentsStr The string containing all arguments for the command.
+     * @param format       The expected format of the command.
+     * @param keywords     A list of keywords used to delimit arguments.
+     * @return An array of extracted arguments.
+     * @throws InvalidCommandException If the arguments do not match the expected format.
+     */
+    private String[] parseArguments(String argumentsStr, String format, List<String> keywords)
             throws InvalidCommandException {
         String[] result = new String[keywords.size() + 1];
         int currentIndex = 0;
@@ -85,8 +124,7 @@ public class Parser {
                 throw new InvalidCommandException(
                         String.format(Messages.WRONG_COMMAND_FORMAT, format));
             }
-            String argument = argumentsStr.substring(currentIndex, nextIndex)
-                    .trim();
+            String argument = argumentsStr.substring(currentIndex, nextIndex).trim();
             if (argument.isEmpty()) {
                 throw new InvalidCommandException(
                         String.format(Messages.WRONG_COMMAND_FORMAT, format));
@@ -96,8 +134,7 @@ public class Parser {
         }
         String argument = argumentsStr.substring(currentIndex).trim();
         if (argument.isEmpty()) {
-            throw new InvalidCommandException(
-                    String.format(Messages.WRONG_COMMAND_FORMAT, format));
+            throw new InvalidCommandException(String.format(Messages.WRONG_COMMAND_FORMAT, format));
         }
         result[keywords.size()] = argumentsStr.substring(currentIndex).trim();
 
