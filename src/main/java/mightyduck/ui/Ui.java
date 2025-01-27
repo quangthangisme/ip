@@ -12,6 +12,11 @@ public class Ui {
     private final Scanner scanner;
     private final PrintStream printer;
 
+    public Ui(Scanner scanner, PrintStream printer) {
+        this.scanner = scanner;
+        this.printer = printer;
+    }
+
     public Ui() {
         this.scanner = new Scanner(System.in);
         this.printer = System.out;

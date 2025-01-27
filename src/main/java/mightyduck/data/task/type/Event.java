@@ -2,6 +2,7 @@ package mightyduck.data.task.type;
 
 import mightyduck.data.task.Task;
 import mightyduck.exception.InvalidValueException;
+import mightyduck.messages.Messages;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,12 +24,11 @@ public class Event extends Task {
             this.startTime = LocalDateTime.parse(startTime, formatter);
             this.endTime = LocalDateTime.parse(endTime, formatter);
             if (this.endTime.isBefore(this.startTime)) {
-                throw new InvalidValueException("The end time must be after " +
-                        "the start time!");
+                throw new InvalidValueException(
+                        Messages.END_TIME_BEFORE_START_TIME);
             }
         } catch (DateTimeParseException e) {
-            throw new InvalidValueException("Cannot parse the time format! " +
-                    "Expected 'yyyy-MM-dd HH:mm'.");
+            throw new InvalidValueException(Messages.FAILED_PARSE_TIME);
         }
     }
 

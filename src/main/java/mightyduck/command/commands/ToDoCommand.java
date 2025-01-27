@@ -2,7 +2,7 @@ package mightyduck.command.commands;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
-import mightyduck.data.TaskManager;
+import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.data.task.Task;
 import mightyduck.data.task.type.ToDo;
@@ -26,7 +26,8 @@ public class ToDoCommand extends Command {
     @Override
     public CommandResult execute() throws InvalidValueException {
         if (this.arguments.length != 1) {
-            throw new InvalidValueException(Messages.EMPTY_TODO);
+            throw new InvalidValueException(String.format(
+                    Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
         Task todo = new ToDo(arguments[0]);
         int index = this.taskManager.addTask(todo);

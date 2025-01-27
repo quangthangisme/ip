@@ -1,6 +1,5 @@
-package mightyduck.data;
+package mightyduck.data.task;
 
-import mightyduck.data.task.Task;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.messages.Messages;
 

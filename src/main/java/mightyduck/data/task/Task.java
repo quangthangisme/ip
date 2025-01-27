@@ -18,12 +18,20 @@ public abstract class Task {
                 + this.name;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void mark() {
         this.isDone = true;
     }
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    public boolean isMarked() {
+        return this.isDone;
     }
 
     public String encode() {
