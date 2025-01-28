@@ -6,6 +6,7 @@ import mightyduck.command.commands.ByeCommand;
 import mightyduck.command.commands.DeadlineCommand;
 import mightyduck.command.commands.DeleteCommand;
 import mightyduck.command.commands.EventCommand;
+import mightyduck.command.commands.FindCommand;
 import mightyduck.command.commands.ListCommand;
 import mightyduck.command.commands.MarkCommand;
 import mightyduck.command.commands.ToDoCommand;
@@ -67,21 +68,24 @@ public class Parser {
             return new DeleteCommand(this.taskManager, index);
         }
         case ToDoCommand.COMMAND_WORD: {
-            String[] todoArguments =
-                    parseArguments(argumentsStr, ToDoCommand.COMMAND_FORMAT, ToDoCommand.KEYWORDS);
+            String[] todoArguments = parseArguments(argumentsStr, ToDoCommand.COMMAND_FORMAT,
+                    ToDoCommand.KEYWORDS);
             return new ToDoCommand(this.taskManager, todoArguments);
         }
         case DeadlineCommand.COMMAND_WORD: {
-            String[] dlArguments =
-                    parseArguments(argumentsStr, DeadlineCommand.COMMAND_FORMAT,
-                            DeadlineCommand.KEYWORDS);
+            String[] dlArguments = parseArguments(argumentsStr, DeadlineCommand.COMMAND_FORMAT,
+                    DeadlineCommand.KEYWORDS);
             return new DeadlineCommand(this.taskManager, dlArguments);
         }
         case EventCommand.COMMAND_WORD: {
-            String[] eventArguments =
-                    parseArguments(argumentsStr, EventCommand.COMMAND_FORMAT,
-                            EventCommand.KEYWORDS);
+            String[] eventArguments = parseArguments(argumentsStr, EventCommand.COMMAND_FORMAT,
+                    EventCommand.KEYWORDS);
             return new EventCommand(this.taskManager, eventArguments);
+        }
+        case FindCommand.COMMAND_WORD: {
+            String[] findArguments = parseArguments(argumentsStr, FindCommand.COMMAND_FORMAT,
+                    FindCommand.KEYWORDS);
+            return new FindCommand(this.taskManager, findArguments);
         }
         default:
             throw new InvalidCommandException(Messages.INVALID_COMMAND);

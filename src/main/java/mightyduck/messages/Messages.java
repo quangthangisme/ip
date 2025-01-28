@@ -39,7 +39,7 @@ public class Messages {
     /**
      * Message displayed when an invalid command is entered.
      */
-    public static final String INVALID_COMMAND = "This is a wild goose chase!";
+    public static final String INVALID_COMMAND = "The command is quack! I cannot understand that.";
 
     /**
      * Message displayed when the user enters a wrong command format.
@@ -116,6 +116,10 @@ public class Messages {
      * Message displayed when an encoded task format is invalid.
      */
     public static final String INVALID_ENCODED_FORMAT = "Invalid encoded task format: %s";
+
+    public static final String FIND = "Here's the matching tasks:";
+
+    public static final String EMPTY_FIND = "This is a wild goose chase! I cannot find anything.";
 
     private Messages() {
     }

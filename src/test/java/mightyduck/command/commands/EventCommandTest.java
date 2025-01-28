@@ -65,4 +65,3 @@ public class EventCommandTest {
                 EventCommand.COMMAND_FORMAT), exception.getMessage());
     }
 }
-
