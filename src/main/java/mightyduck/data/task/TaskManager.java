@@ -108,6 +108,14 @@ public class TaskManager {
         return this.tasks.remove(index);
     }
 
+    /**
+     * Searches for tasks whose names contain the specified keyword (case-insensitive). It returns
+     * a list of tasks paired with the index of the task in the list.
+     *
+     * @param word The keyword to search for in the task names.
+     * @return A list of {@link Pair} objects, where each pair contains the index of the matching
+     *         task and the task itself.
+     */
     public List<Pair<Integer, Task>> searchKeyword(String word) {
         return IntStream.range(0, this.tasks.size())
                 .filter(i -> this.tasks.get(i).getName().toLowerCase().contains(word.toLowerCase()))

@@ -117,8 +117,14 @@ public class Messages {
      */
     public static final String INVALID_ENCODED_FORMAT = "Invalid encoded task format: %s";
 
+    /**
+     * Message displayed when at least one matching task was found.
+     */
     public static final String FIND = "Here's the matching tasks:";
 
+    /**
+     * Message displayed when no matching tasks were found.
+     */
     public static final String EMPTY_FIND = "This is a wild goose chase! I cannot find anything.";
 
     private Messages() {

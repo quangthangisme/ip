@@ -11,6 +11,7 @@ import mightyduck.command.commands.ByeCommand;
 import mightyduck.command.commands.DeadlineCommand;
 import mightyduck.command.commands.DeleteCommand;
 import mightyduck.command.commands.EventCommand;
+import mightyduck.command.commands.FindCommand;
 import mightyduck.command.commands.ListCommand;
 import mightyduck.command.commands.MarkCommand;
 import mightyduck.command.commands.ToDoCommand;
@@ -158,8 +159,8 @@ public class ParserTest {
 
     @Test
     void parse_findCommandMissingWord_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class,
-                () -> parser.parse("find"));
+        Exception exception = assertThrows(InvalidCommandException.class, () ->
+                parser.parse("find"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
                 FindCommand.COMMAND_FORMAT), exception.getMessage());
     }
