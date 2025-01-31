@@ -58,12 +58,12 @@ public class ToDoCommand extends Command {
      */
     @Override
     public CommandResult execute() throws InvalidValueException {
-        if (this.arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new InvalidValueException(
                     String.format(Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
         Task todo = new ToDo(arguments[0]);
-        int index = this.taskManager.addTask(todo);
+        int index = taskManager.addTask(todo);
         return new CommandResult(Messages.ADD_TASK, List.of(new Pair<>(index, todo)));
     }
 

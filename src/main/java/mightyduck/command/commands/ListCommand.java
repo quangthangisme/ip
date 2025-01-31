@@ -38,7 +38,7 @@ public class ListCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        List<Task> tasks = this.taskManager.getTasks();
+        List<Task> tasks = taskManager.getTasks();
         return new CommandResult((tasks.isEmpty()) ? Messages.EMPTY_LIST : Messages.LIST,
                 IntStream.range(0, tasks.size())
                         .mapToObj(i -> new Pair<>(i, tasks.get(i)))

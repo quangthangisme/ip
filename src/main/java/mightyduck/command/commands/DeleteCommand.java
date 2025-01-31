@@ -45,8 +45,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public CommandResult execute() throws InvalidValueException {
-        Task task = this.taskManager.deleteTask(this.index);
-        return new CommandResult(Messages.DELETE, List.of(new Pair<>(this.index, task)));
+        Task task = taskManager.deleteTask(index);
+        return new CommandResult(Messages.DELETE, List.of(new Pair<>(index, task)));
     }
 
     @Override

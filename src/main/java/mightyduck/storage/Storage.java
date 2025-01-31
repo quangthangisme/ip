@@ -30,8 +30,8 @@ public class Storage {
      * @throws InvalidStoragePathException If the file path does not end with ".txt".
      */
     public Storage(String filePath) throws InvalidStoragePathException {
-        this.path = Paths.get(filePath);
-        if (!this.path.toString().endsWith(".txt")) {
+        path = Paths.get(filePath);
+        if (!path.toString().endsWith(".txt")) {
             throw new InvalidStoragePathException("Storage file should end with '.txt'");
         }
     }
@@ -45,10 +45,10 @@ public class Storage {
     public void save(TaskManager taskManager) throws StorageWriteException {
         try {
             List<String> encodedTasks = taskManager.encodeTasks();
-            Files.createDirectories(this.path.getParent());
-            Files.write(this.path, encodedTasks);
+            Files.createDirectories(path.getParent());
+            Files.write(path, encodedTasks);
         } catch (IOException ioe) {
-            throw new StorageWriteException("Error writing to file: " + this.path);
+            throw new StorageWriteException("Error writing to file: " + path);
         }
     }
 
@@ -65,9 +65,9 @@ public class Storage {
         }
 
         try {
-            return TaskDecoder.decodeTasks(Files.readAllLines(this.path));
+            return TaskDecoder.decodeTasks(Files.readAllLines(path));
         } catch (IOException e) {
-            throw new StorageLoadException("Error loading file: " + this.path);
+            throw new StorageLoadException("Error loading file: " + path);
         }
     }
 }

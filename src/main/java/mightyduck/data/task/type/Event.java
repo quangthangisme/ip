@@ -65,12 +65,8 @@ public class Event extends Task {
      * @return A string representation of the event task.
      */
     public String toString() {
-        return super.toString()
-                + " (from "
-                + this.startTime.format(formatter)
-                + " to "
-                + this.endTime.format(formatter)
-                + ")";
+        return super.toString() + " (from " + startTime.format(formatter)
+                + " to " + endTime.format(formatter) + ")";
     }
 
     /**
@@ -80,6 +76,6 @@ public class Event extends Task {
      */
     @Override
     public List<String> encodedAddedInfo() {
-        return List.of(this.startTime.format(formatter), this.endTime.format(formatter));
+        return List.of(startTime.format(formatter), endTime.format(formatter));
     }
 }

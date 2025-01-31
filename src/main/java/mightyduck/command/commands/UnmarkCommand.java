@@ -46,8 +46,8 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public CommandResult execute() throws InvalidValueException {
-        Task task = this.taskManager.unmarkTask(this.index);
-        return new CommandResult(Messages.UNMARK, List.of(new Pair<>(this.index, task)));
+        Task task = taskManager.unmarkTask(index);
+        return new CommandResult(Messages.UNMARK, List.of(new Pair<>(index, task)));
     }
 
     @Override

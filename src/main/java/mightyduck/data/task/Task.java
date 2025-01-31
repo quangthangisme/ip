@@ -28,7 +28,7 @@ public abstract class Task {
      */
     public Task(String name, String signature) {
         this.name = name;
-        this.isDone = false;
+        isDone = false;
         this.signature = signature;
     }
 
@@ -40,7 +40,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.signature + "][" + (this.isDone ? "X" : " ") + "] " + this.name;
+        return "[" + signature + "][" + (isDone ? "X" : " ") + "] " + name;
     }
 
     /**
@@ -49,21 +49,21 @@ public abstract class Task {
      * @return The name of the task.
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
      * Marks the task as completed.
      */
     public void mark() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the task as not completed.
      */
     public void unmark() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class Task {
      * @return {@code true} if the task is marked as completed, {@code false} otherwise.
      */
     public boolean isMarked() {
-        return this.isDone;
+        return isDone;
     }
 
     /**
@@ -84,9 +84,9 @@ public abstract class Task {
      */
     public String encode() {
         StringBuilder encodedTaskBuilder = new StringBuilder();
-        encodedTaskBuilder.append(this.signature);
-        encodedTaskBuilder.append("\t").append(this.isDone ? 1 : 0);
-        encodedTaskBuilder.append("\t").append(this.name);
+        encodedTaskBuilder.append(signature);
+        encodedTaskBuilder.append("\t").append(isDone ? 1 : 0);
+        encodedTaskBuilder.append("\t").append(name);
         encodedAddedInfo().forEach(info -> encodedTaskBuilder.append("\t").append(info));
         return encodedTaskBuilder.toString();
     }

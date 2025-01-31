@@ -52,40 +52,40 @@ public class Parser {
 
         switch (commandStr) {
         case ByeCommand.COMMAND_WORD:
-            return new ByeCommand(this.taskManager);
+            return new ByeCommand(taskManager);
         case ListCommand.COMMAND_WORD:
-            return new ListCommand(this.taskManager);
+            return new ListCommand(taskManager);
         case MarkCommand.COMMAND_WORD: {
             int index = parseIndex(argumentsStr);
-            return new MarkCommand(this.taskManager, index);
+            return new MarkCommand(taskManager, index);
         }
         case UnmarkCommand.COMMAND_WORD: {
             int index = parseIndex(argumentsStr);
-            return new UnmarkCommand(this.taskManager, index);
+            return new UnmarkCommand(taskManager, index);
         }
         case DeleteCommand.COMMAND_WORD: {
             int index = parseIndex(argumentsStr);
-            return new DeleteCommand(this.taskManager, index);
+            return new DeleteCommand(taskManager, index);
         }
         case ToDoCommand.COMMAND_WORD: {
             String[] todoArguments = parseArguments(argumentsStr, ToDoCommand.COMMAND_FORMAT,
                     ToDoCommand.KEYWORDS);
-            return new ToDoCommand(this.taskManager, todoArguments);
+            return new ToDoCommand(taskManager, todoArguments);
         }
         case DeadlineCommand.COMMAND_WORD: {
             String[] dlArguments = parseArguments(argumentsStr, DeadlineCommand.COMMAND_FORMAT,
                     DeadlineCommand.KEYWORDS);
-            return new DeadlineCommand(this.taskManager, dlArguments);
+            return new DeadlineCommand(taskManager, dlArguments);
         }
         case EventCommand.COMMAND_WORD: {
             String[] eventArguments = parseArguments(argumentsStr, EventCommand.COMMAND_FORMAT,
                     EventCommand.KEYWORDS);
-            return new EventCommand(this.taskManager, eventArguments);
+            return new EventCommand(taskManager, eventArguments);
         }
         case FindCommand.COMMAND_WORD: {
             String[] findArguments = parseArguments(argumentsStr, FindCommand.COMMAND_FORMAT,
                     FindCommand.KEYWORDS);
-            return new FindCommand(this.taskManager, findArguments);
+            return new FindCommand(taskManager, findArguments);
         }
         default:
             throw new InvalidCommandException(Messages.INVALID_COMMAND);

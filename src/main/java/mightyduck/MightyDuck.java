@@ -67,11 +67,11 @@ public class MightyDuck {
      * the parser. If initialization fails, an error message is displayed.
      */
     private void start() {
-        this.ui = new Ui();
+        ui = new Ui();
         try {
-            this.storage = new Storage(STORAGE_PATH);
-            this.taskManager = this.storage.load();
-            this.parser = new Parser(this.taskManager);
+            storage = new Storage(STORAGE_PATH);
+            taskManager = storage.load();
+            parser = new Parser(taskManager);
             ui.printWelcomeMessage();
 
         } catch (InvalidStoragePathException | StorageLoadException e) {

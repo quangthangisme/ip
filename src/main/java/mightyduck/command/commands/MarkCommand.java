@@ -46,8 +46,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public CommandResult execute() throws InvalidValueException {
-        Task task = this.taskManager.markTask(this.index);
-        return new CommandResult(Messages.MARK, List.of(new Pair<>(this.index, task)));
+        Task task = taskManager.markTask(index);
+        return new CommandResult(Messages.MARK, List.of(new Pair<>(index, task)));
     }
 
     @Override

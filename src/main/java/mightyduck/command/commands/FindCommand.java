@@ -59,11 +59,11 @@ public class FindCommand extends Command {
      */
     @Override
     public CommandResult execute() throws InvalidValueException {
-        if (this.arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new InvalidValueException(String.format(
                     Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
-        List<Pair<Integer, Task>> res = this.taskManager.searchKeyword(this.arguments[0]);
+        List<Pair<Integer, Task>> res = taskManager.searchKeyword(arguments[0]);
         return new CommandResult((res.isEmpty()) ? Messages.EMPTY_FIND : Messages.FIND, res);
     }
 

@@ -59,12 +59,12 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public CommandResult execute() throws InvalidValueException {
-        if (this.arguments.length != 2) {
+        if (arguments.length != 2) {
             throw new InvalidValueException(
                     String.format(Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
         Task deadline = new Deadline(arguments[0], arguments[1]);
-        int index = this.taskManager.addTask(deadline);
+        int index = taskManager.addTask(deadline);
         return new CommandResult(Messages.ADD_TASK, List.of(new Pair<>(index, deadline)));
     }
 

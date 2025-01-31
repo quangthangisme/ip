@@ -59,12 +59,12 @@ public class EventCommand extends Command {
      */
     @Override
     public CommandResult execute() throws InvalidValueException {
-        if (this.arguments.length != 3) {
+        if (arguments.length != 3) {
             throw new InvalidValueException(
                     String.format(Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
         Task event = new Event(arguments[0], arguments[1], arguments[2]);
-        int index = this.taskManager.addTask(event);
+        int index = taskManager.addTask(event);
         return new CommandResult(Messages.ADD_TASK, List.of(new Pair<>(index, event)));
     }
 

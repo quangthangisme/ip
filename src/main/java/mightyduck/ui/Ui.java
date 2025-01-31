@@ -39,8 +39,8 @@ public class Ui {
      * Creates a new {@link Ui} object with the default system input and output.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
-        this.printer = System.out;
+        scanner = new Scanner(System.in);
+        printer = System.out;
     }
 
     /**
@@ -49,8 +49,8 @@ public class Ui {
      * @return The command input as a string.
      */
     public String readCommand() {
-        this.printer.print("> ");
-        return this.scanner.nextLine().trim();
+        printer.print("> ");
+        return scanner.nextLine().trim();
     }
 
     /**
@@ -60,9 +60,9 @@ public class Ui {
      * @param res The result of the command execution, containing feedback and affected tasks.
      */
     public void displayCommandResult(CommandResult res) {
-        this.printer.println(res.feedback());
+        printer.println(res.feedback());
         for (Pair<Integer, Task> taskPair : res.tasks()) {
-            this.printer.println("\t" + (taskPair.index() + 1) + ". " + taskPair.element());
+            printer.println("\t" + (taskPair.index() + 1) + ". " + taskPair.element());
         }
     }
 
@@ -70,21 +70,21 @@ public class Ui {
      * Prints the welcome message to the user when the application starts.
      */
     public void printWelcomeMessage() {
-        this.printer.println(Messages.WELCOME);
+        printer.println(Messages.WELCOME);
     }
 
     /**
      * Prints an error message indicating that the application initialization failed.
      */
     public void printInitFailedMessage() {
-        this.printer.println(Messages.FAILED_INIT);
+        printer.println(Messages.FAILED_INIT);
     }
 
     /**
      * Prints an error message indicating that saving tasks failed.
      */
     public void printSavingFailedMessage() {
-        this.printer.println(Messages.FAILED_SAVE);
+        printer.println(Messages.FAILED_SAVE);
     }
 
     /**
@@ -93,6 +93,6 @@ public class Ui {
      * @param message The exception message to be displayed.
      */
     public void printException(String message) {
-        this.printer.println(Messages.EXCEPTION + message);
+        printer.println(Messages.EXCEPTION + message);
     }
 }

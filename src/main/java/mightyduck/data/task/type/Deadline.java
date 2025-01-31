@@ -56,7 +56,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (by " + this.deadline.format(formatter) + ")";
+        return super.toString() + " (by " + deadline.format(formatter) + ")";
     }
 
     /**
@@ -66,6 +66,6 @@ public class Deadline extends Task {
      */
     @Override
     public List<String> encodedAddedInfo() {
-        return List.of(this.deadline.format(formatter));
+        return List.of(deadline.format(formatter));
     }
 }

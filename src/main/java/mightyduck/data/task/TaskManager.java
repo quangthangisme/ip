@@ -22,7 +22,7 @@ public class TaskManager {
      * Constructs a new TaskManager instance. Initializes the tasks list as an empty ArrayList.
      */
     public TaskManager() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -32,8 +32,8 @@ public class TaskManager {
      * @return The index at which the task was added.
      */
     public int addTask(Task task) {
-        this.tasks.add(task);
-        return this.getTaskCount() - 1;
+        tasks.add(task);
+        return getTaskCount() - 1;
     }
 
     /**
@@ -44,10 +44,10 @@ public class TaskManager {
      * @throws InvalidValueException If the index is out of range.
      */
     public Task getTask(int index) throws InvalidValueException {
-        if (index < 0 || index >= this.tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new InvalidValueException(Messages.OUT_OF_RANGE_INDEX);
         }
-        return this.tasks.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -56,7 +56,7 @@ public class TaskManager {
      * @return The number of tasks.
      */
     public int getTaskCount() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**
@@ -65,7 +65,7 @@ public class TaskManager {
      * @return A new {@link List} containing all tasks.
      */
     public List<Task> getTasks() {
-        return new ArrayList<>(this.tasks);
+        return new ArrayList<>(tasks);
     }
 
     /**
@@ -76,7 +76,7 @@ public class TaskManager {
      * @throws InvalidValueException If the index is out of range.
      */
     public Task markTask(int index) throws InvalidValueException {
-        Task task = this.getTask(index);
+        Task task = getTask(index);
         task.mark();
         return task;
     }
@@ -89,7 +89,7 @@ public class TaskManager {
      * @throws InvalidValueException If the index is out of range.
      */
     public Task unmarkTask(int index) throws InvalidValueException {
-        Task task = this.getTask(index);
+        Task task = getTask(index);
         task.unmark();
         return task;
     }
@@ -102,10 +102,10 @@ public class TaskManager {
      * @throws InvalidValueException If the index is out of range.
      */
     public Task deleteTask(int index) throws InvalidValueException {
-        if (index < 0 || index >= this.tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new InvalidValueException(Messages.OUT_OF_RANGE_INDEX);
         }
-        return this.tasks.remove(index);
+        return tasks.remove(index);
     }
 
     /**
@@ -117,9 +117,9 @@ public class TaskManager {
      *         task and the task itself.
      */
     public List<Pair<Integer, Task>> searchKeyword(String word) {
-        return IntStream.range(0, this.tasks.size())
-                .filter(i -> this.tasks.get(i).getName().toLowerCase().contains(word.toLowerCase()))
-                .mapToObj(i -> new Pair<>(i, this.tasks.get(i)))
+        return IntStream.range(0, tasks.size())
+                .filter(i -> tasks.get(i).getName().toLowerCase().contains(word.toLowerCase()))
+                .mapToObj(i -> new Pair<>(i, tasks.get(i)))
                 .toList();
     }
 
@@ -129,6 +129,6 @@ public class TaskManager {
      * @return A list of encoded strings representing each task.
      */
     public List<String> encodeTasks() {
-        return this.tasks.stream().map(Task::encode).toList();
+        return tasks.stream().map(Task::encode).toList();
     }
 }
