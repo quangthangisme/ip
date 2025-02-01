@@ -40,8 +40,7 @@ public class MarkCommand extends Command {
      * Executes the "mark" command, marking the specified task as completed and returning the result
      * of the operation.
      *
-     * @return A {@link CommandResult} containing the feedback message and details of the updated
-     *         task.
+     * @return A {@link CommandResult} containing the feedback message and the updated task.
      * @throws InvalidValueException If the task index is invalid.
      */
     @Override

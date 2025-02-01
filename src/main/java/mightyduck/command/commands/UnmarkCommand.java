@@ -40,8 +40,7 @@ public class UnmarkCommand extends Command {
      * Executes the "unmark" command, marking the specified task as not completed and returning the
      * result of the operation.
      *
-     * @return A {@link CommandResult} containing the feedback message and details of the updated
-     *         task.
+     * @return A {@link CommandResult} containing the feedback message and the updated task.
      * @throws InvalidValueException If the task index is invalid.
      */
     @Override

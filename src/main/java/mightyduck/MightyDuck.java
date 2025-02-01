@@ -58,7 +58,7 @@ public class MightyDuck {
             } catch (InvalidValueException | InvalidCommandException e) {
                 ui.printException(e.getMessage());
             }
-            System.out.println();
+            ui.printBlankLine();
         }
     }
 

@@ -95,4 +95,11 @@ public class Ui {
     public void printException(String message) {
         printer.println(Messages.EXCEPTION + message);
     }
+
+    /**
+     * Prints a blank line as a separator.
+     */
+    public void printBlankLine() {
+        System.out.println();
+    }
 }
