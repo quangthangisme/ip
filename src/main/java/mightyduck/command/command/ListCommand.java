@@ -1,14 +1,13 @@
-package mightyduck.command.commands;
+package mightyduck.command.command;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
-import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
 import mightyduck.command.CommandResultType;
 import mightyduck.data.task.Task;
 import mightyduck.data.task.TaskManager;
-import mightyduck.messages.Messages;
+import mightyduck.utils.Messages;
 import mightyduck.utils.Pair;
 
 /**
@@ -16,11 +15,6 @@ import mightyduck.utils.Pair;
  * {@link TaskManager}.
  */
 public class ListCommand extends Command {
-
-    /**
-     * The command word used to invoke the "list" command.
-     */
-    public static final String COMMAND_WORD = "list";
 
     /**
      * Constructs a {@code ListCommand} with the specified {@link TaskManager}.

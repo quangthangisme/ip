@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import mightyduck.data.task.type.ToDo;
 import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
+import mightyduck.utils.Messages;
 
 public class TaskManagerTest {
     private TaskManager taskManager;
@@ -94,13 +94,25 @@ public class TaskManagerTest {
     }
 
     @Test
-    void searchKeyword_success() {
+    void searchKeywords_oneKw_success() {
         Task task1 = new ToDo("task 1");
         Task task2 = new ToDo("task 2");
         taskManager.addTask(task1);
         taskManager.addTask(task2);
 
-        assertEquals(2, taskManager.searchKeyword("task").size());
+        assertEquals(2, taskManager.searchKeywords(List.of("task")).size());
+    }
+
+    @Test
+    void searchKeywords_twoKws_success() {
+        Task task1 = new ToDo("task 1");
+        Task task2 = new ToDo("task 2");
+        Task task3 = new ToDo("haha");
+        taskManager.addTask(task1);
+        taskManager.addTask(task2);
+        taskManager.addTask(task3);
+
+        assertEquals(3, taskManager.searchKeywords(List.of("task", "ah")).size());
     }
 
     @Test

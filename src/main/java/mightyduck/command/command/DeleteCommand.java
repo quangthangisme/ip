@@ -1,25 +1,19 @@
-package mightyduck.command.commands;
+package mightyduck.command.command;
 
 import java.util.List;
 
-import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
 import mightyduck.command.CommandResultType;
 import mightyduck.data.task.Task;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
+import mightyduck.utils.Messages;
 import mightyduck.utils.Pair;
 
 /**
  * Represents the "delete" command, which removes a task from the {@link TaskManager}.
  */
 public class DeleteCommand extends Command {
-
-    /**
-     * The command word used to invoke the "delete" command.
-     */
-    public static final String COMMAND_WORD = "delete";
 
     /**
      * The index of the task to be deleted.

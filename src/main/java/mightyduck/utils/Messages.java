@@ -1,4 +1,6 @@
-package mightyduck.messages;
+package mightyduck.utils;
+
+import static mightyduck.utils.DateTimeUtils.PATTERN;
 
 /**
  * Contains user-visible messages used throughout the application.
@@ -72,18 +74,12 @@ public class Messages {
     /**
      * Message displayed when file loading fails.
      */
-    public static final String FAILED_INIT =
-            """
-                    Oh duck, the file loading failed.
-                    """;
+    public static final String FAILED_INIT = "Oh duck, the file loading failed.";
 
     /**
      * Message displayed when file saving fails.
      */
-    public static final String FAILED_SAVE =
-            """
-                    Oh duck, the file saving failed.
-                    """;
+    public static final String FAILED_SAVE = "Oh duck, the file saving failed.";
 
     /**
      * General exception message displayed when an error occurs.
@@ -105,7 +101,7 @@ public class Messages {
      * Message displayed when the time format is invalid during parsing.
      */
     public static final String FAILED_PARSE_TIME =
-            "I cannot parse the time format! Expected 'yyyy-MM-dd HH:mm'.";
+            "I cannot parse the time format! Expected '" + PATTERN + "'.";
 
     /**
      * Message displayed when an encoded task format is invalid.
@@ -137,6 +133,10 @@ public class Messages {
      */
     public static final String LOAD_ERROR = "Error loading file: %s";
 
+    /**
+     * Private constructor to prevent instantiation of this utility class
+     */
     private Messages() {
+        throw new UnsupportedOperationException("Utility class should not be instantiated.");
     }
 }

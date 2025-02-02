@@ -1,4 +1,4 @@
-package mightyduck.command.commands;
+package mightyduck.command.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import mightyduck.data.task.TaskManager;
 import mightyduck.data.task.type.ToDo;
 import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
+import mightyduck.utils.Messages;
 
 public class DeleteCommandTest {
     private TaskManager taskManager;

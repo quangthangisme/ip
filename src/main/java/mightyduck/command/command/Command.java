@@ -1,5 +1,6 @@
-package mightyduck.command;
+package mightyduck.command.command;
 
+import mightyduck.command.CommandResult;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
 

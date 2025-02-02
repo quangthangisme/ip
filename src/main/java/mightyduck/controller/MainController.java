@@ -93,8 +93,8 @@ public class MainController extends AnchorPane {
         StringBuilder response = new StringBuilder();
         response.append(commandResult.feedback()).append("\n");
         for (Pair<Integer, Task> taskPair : commandResult.tasks()) {
-            response.append("\t").append(taskPair.index() + 1).append(". ")
-                    .append(taskPair.element()).append("\n");
+            response.append("\t").append(taskPair.key() + 1).append(". ")
+                    .append(taskPair.value()).append("\n");
         }
         dialogContainer.getChildren().add(
                 DialogBoxController.getDuckDialog(response.toString(), duckImage)

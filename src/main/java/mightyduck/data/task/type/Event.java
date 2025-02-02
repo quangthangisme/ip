@@ -1,13 +1,11 @@
 package mightyduck.data.task.type;
 
+import static mightyduck.utils.DateTimeUtils.FORMATTER;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import mightyduck.data.task.Task;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
 
 /**
  * Represents an event task with a specific name and deadline time. The task is identified with the
@@ -21,12 +19,6 @@ public class Event extends Task {
     public static final String SIGNATURE = "E";
 
     /**
-     * The date-time formatter for parsing and displaying start and end times.
-     */
-    private static final DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    /**
      * The start time of the event.
      */
     private final LocalDateTime startTime;
@@ -37,25 +29,16 @@ public class Event extends Task {
     private final LocalDateTime endTime;
 
     /**
-     * Constructs a new {@code Event} task with the specified name, start time, and end time. The
-     * times should be in the format "yyyy-MM-dd HH:mm".
+     * Constructs a new {@code Event} task with the specified name, start time, and end time.
      *
      * @param name      The name of the task.
-     * @param startTime The start time of the task as a string.
-     * @param endTime   The end time of the task as a string.
-     * @throws InvalidValueException if the times cannot be parsed correctly.
+     * @param startTime The start time of the task.
+     * @param endTime   The end time of the task.
      */
-    public Event(String name, String startTime, String endTime) throws InvalidValueException {
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name, SIGNATURE);
-        try {
-            this.startTime = LocalDateTime.parse(startTime, formatter);
-            this.endTime = LocalDateTime.parse(endTime, formatter);
-            if (this.endTime.isBefore(this.startTime)) {
-                throw new InvalidValueException(Messages.END_TIME_BEFORE_START_TIME);
-            }
-        } catch (DateTimeParseException e) {
-            throw new InvalidValueException(Messages.FAILED_PARSE_TIME);
-        }
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -65,8 +48,8 @@ public class Event extends Task {
      * @return A string representation of the event task.
      */
     public String toString() {
-        return super.toString() + " (from " + startTime.format(formatter)
-                + " to " + endTime.format(formatter) + ")";
+        return super.toString() + " (from " + startTime.format(FORMATTER)
+                + " to " + endTime.format(FORMATTER) + ")";
     }
 
     /**
@@ -76,6 +59,6 @@ public class Event extends Task {
      */
     @Override
     public List<String> encodedAddedInfo() {
-        return List.of(startTime.format(formatter), endTime.format(formatter));
+        return List.of(startTime.format(FORMATTER), endTime.format(FORMATTER));
     }
 }

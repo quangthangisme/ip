@@ -1,22 +1,16 @@
-package mightyduck.command.commands;
+package mightyduck.command.command;
 
 import java.util.List;
 
-import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
 import mightyduck.command.CommandResultType;
 import mightyduck.data.task.TaskManager;
-import mightyduck.messages.Messages;
+import mightyduck.utils.Messages;
 
 /**
  * Represents the "bye" command, which terminates the application.
  */
 public class ByeCommand extends Command {
-
-    /**
-     * The command word used to invoke the "bye" command.
-     */
-    public static final String COMMAND_WORD = "bye";
 
     /**
      * Constructs a {@code ByeCommand} with the specified {@link TaskManager}.

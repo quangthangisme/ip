@@ -1,19 +1,25 @@
 package mightyduck.command;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import mightyduck.command.commands.ByeCommand;
-import mightyduck.command.commands.DeadlineCommand;
-import mightyduck.command.commands.DeleteCommand;
-import mightyduck.command.commands.EventCommand;
-import mightyduck.command.commands.FindCommand;
-import mightyduck.command.commands.ListCommand;
-import mightyduck.command.commands.MarkCommand;
-import mightyduck.command.commands.ToDoCommand;
-import mightyduck.command.commands.UnmarkCommand;
+import mightyduck.command.builder.Builder;
+import mightyduck.command.builder.ByeBuilder;
+import mightyduck.command.builder.DeadlineBuilder;
+import mightyduck.command.builder.DeleteBuilder;
+import mightyduck.command.builder.EventBuilder;
+import mightyduck.command.builder.FindBuilder;
+import mightyduck.command.builder.ListBuilder;
+import mightyduck.command.builder.MarkBuilder;
+import mightyduck.command.builder.ToDoBuilder;
+import mightyduck.command.builder.UnmarkBuilder;
+import mightyduck.command.command.Command;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
-import mightyduck.messages.Messages;
+import mightyduck.exception.InvalidValueException;
+import mightyduck.utils.Messages;
+import mightyduck.utils.Pair;
 
 /**
  * The {@code Parser} class is responsible for interpreting user input and converting it into
@@ -22,17 +28,36 @@ import mightyduck.messages.Messages;
 public class Parser {
 
     /**
-     * The {@link TaskManager} used for managing tasks.
+     * A map of command words to their corresponding functions responsible for parsing user input
+     * and generating the appropriate {@link Command} objects.
      */
-    private final TaskManager taskManager;
+    private final Map<String, ParsingFunc> commandMap;
 
     /**
-     * Constructs a {@code Parser} with the given {@link TaskManager}.
+     * Constructs a {@code Parser} with the given {@link TaskManager}. This constructor initializes
+     * a map of command words (such as "bye", "delete", etc.) to their corresponding builder classes
+     * responsible for parsing user input and generating the appropriate {@link Command} objects.
      *
      * @param taskManager The {@link TaskManager} to be used for managing tasks.
      */
     public Parser(TaskManager taskManager) {
-        this.taskManager = taskManager;
+        this.commandMap = new HashMap<>();
+
+        List<Pair<String, Builder>> builders = List.of(
+                new Pair<>(ByeBuilder.COMMAND_WORD, new ByeBuilder(taskManager)),
+                new Pair<>(DeleteBuilder.COMMAND_WORD, new DeleteBuilder(taskManager)),
+                new Pair<>(DeadlineBuilder.COMMAND_WORD, new DeadlineBuilder(taskManager)),
+                new Pair<>(EventBuilder.COMMAND_WORD, new EventBuilder(taskManager)),
+                new Pair<>(FindBuilder.COMMAND_WORD, new FindBuilder(taskManager)),
+                new Pair<>(ListBuilder.COMMAND_WORD, new ListBuilder(taskManager)),
+                new Pair<>(MarkBuilder.COMMAND_WORD, new MarkBuilder(taskManager)),
+                new Pair<>(ToDoBuilder.COMMAND_WORD, new ToDoBuilder(taskManager)),
+                new Pair<>(UnmarkBuilder.COMMAND_WORD, new UnmarkBuilder(taskManager))
+        );
+
+        for (Pair<String, Builder> builder : builders) {
+            commandMap.put(builder.key(), builder.value()::fromInput);
+        }
     }
 
     /**
@@ -41,107 +66,34 @@ public class Parser {
      * @param input The raw user input as a {@link String}.
      * @return The corresponding {@link Command} object.
      * @throws InvalidCommandException If the input is invalid or does not match any known command.
+     * @throws InvalidValueException   If the input contains invalid values.
      */
-    public Command parse(String input) throws InvalidCommandException {
+    public Command parse(String input) throws InvalidCommandException, InvalidValueException {
         String[] parts = input.trim().split(" ", 2);
-        if (parts.length == 0) {
-            throw new InvalidCommandException(Messages.INVALID_COMMAND);
-        }
         String commandStr = parts[0];
         String argumentsStr = parts.length > 1 ? parts[1] : "";
 
-        switch (commandStr) {
-        case ByeCommand.COMMAND_WORD:
-            return new ByeCommand(taskManager);
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand(taskManager);
-        case MarkCommand.COMMAND_WORD: {
-            int index = parseIndex(argumentsStr);
-            return new MarkCommand(taskManager, index);
-        }
-        case UnmarkCommand.COMMAND_WORD: {
-            int index = parseIndex(argumentsStr);
-            return new UnmarkCommand(taskManager, index);
-        }
-        case DeleteCommand.COMMAND_WORD: {
-            int index = parseIndex(argumentsStr);
-            return new DeleteCommand(taskManager, index);
-        }
-        case ToDoCommand.COMMAND_WORD: {
-            String[] todoArguments = parseArguments(argumentsStr, ToDoCommand.COMMAND_FORMAT,
-                    ToDoCommand.KEYWORDS);
-            return new ToDoCommand(taskManager, todoArguments);
-        }
-        case DeadlineCommand.COMMAND_WORD: {
-            String[] dlArguments = parseArguments(argumentsStr, DeadlineCommand.COMMAND_FORMAT,
-                    DeadlineCommand.KEYWORDS);
-            return new DeadlineCommand(taskManager, dlArguments);
-        }
-        case EventCommand.COMMAND_WORD: {
-            String[] eventArguments = parseArguments(argumentsStr, EventCommand.COMMAND_FORMAT,
-                    EventCommand.KEYWORDS);
-            return new EventCommand(taskManager, eventArguments);
-        }
-        case FindCommand.COMMAND_WORD: {
-            String[] findArguments = parseArguments(argumentsStr, FindCommand.COMMAND_FORMAT,
-                    FindCommand.KEYWORDS);
-            return new FindCommand(taskManager, findArguments);
-        }
-        default:
+        ParsingFunc parsingFunc = commandMap.get(commandStr);
+        if (parsingFunc == null) {
             throw new InvalidCommandException(Messages.INVALID_COMMAND);
         }
+        return parsingFunc.apply(argumentsStr);
     }
 
     /**
-     * Parses the provided argument string to extract an index.
-     *
-     * @param argumentsStr The string containing the index argument.
-     * @return The zero-based index parsed from the argument string.
-     * @throws InvalidCommandException If the argument is not a valid number.
+     * A functional interface representing a function that parses user input and returns a
+     * {@link Command}.
      */
-    private int parseIndex(String argumentsStr) throws InvalidCommandException {
-        try {
-            return Integer.parseInt(argumentsStr.trim()) - 1;
-        } catch (NumberFormatException e) {
-            throw new InvalidCommandException(Messages.WRONG_NUMBER_FORMAT);
-        }
-    }
-
-    /**
-     * Parses the arguments string for a command, extracting arguments based on the specified format
-     * and keywords.
-     *
-     * @param argumentsStr The string containing all arguments for the command.
-     * @param format       The expected format of the command.
-     * @param keywords     A list of keywords used to delimit arguments.
-     * @return An array of extracted arguments.
-     * @throws InvalidCommandException If the arguments do not match the expected format.
-     */
-    private String[] parseArguments(String argumentsStr, String format, List<String> keywords)
-            throws InvalidCommandException {
-        String[] result = new String[keywords.size() + 1];
-        int currentIndex = 0;
-
-        for (int i = 0; i < keywords.size(); i++) {
-            int nextIndex = argumentsStr.indexOf(keywords.get(i));
-            if (nextIndex == -1) {
-                throw new InvalidCommandException(
-                        String.format(Messages.WRONG_COMMAND_FORMAT, format));
-            }
-            String argument = argumentsStr.substring(currentIndex, nextIndex).trim();
-            if (argument.isEmpty()) {
-                throw new InvalidCommandException(
-                        String.format(Messages.WRONG_COMMAND_FORMAT, format));
-            }
-            result[i] = argument;
-            currentIndex = nextIndex + keywords.get(i).length();
-        }
-        String argument = argumentsStr.substring(currentIndex).trim();
-        if (argument.isEmpty()) {
-            throw new InvalidCommandException(String.format(Messages.WRONG_COMMAND_FORMAT, format));
-        }
-        result[keywords.size()] = argumentsStr.substring(currentIndex).trim();
-
-        return result;
+    @FunctionalInterface
+    private interface ParsingFunc {
+        /**
+         * Parses the given input string and returns the corresponding {@link Command}.
+         *
+         * @param str The string to parse, which contains the arguments after the command word.
+         * @return The corresponding {@link Command} object created from the input.
+         * @throws InvalidCommandException If the input is incorrectly formatted.
+         * @throws InvalidValueException   If the input contains invalid values.
+         */
+        Command apply(String str) throws InvalidCommandException, InvalidValueException;
     }
 }

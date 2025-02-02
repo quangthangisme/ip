@@ -1,13 +1,11 @@
 package mightyduck.data.task.type;
 
+import static mightyduck.utils.DateTimeUtils.FORMATTER;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import mightyduck.data.task.Task;
-import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
 
 /**
  * Represents a deadline task with a specific name and deadline time. The task is identified with
@@ -21,31 +19,19 @@ public class Deadline extends Task {
     public static final String SIGNATURE = "D";
 
     /**
-     * The date-time formatter for parsing and displaying deadline times.
-     */
-    private static final DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    /**
      * The deadline time of the task.
      */
     private final LocalDateTime deadline;
 
     /**
-     * Constructs a new {@code Deadline} task with the specified name and deadline time. The
-     * deadline time should be in the format "yyyy-MM-dd HH:mm".
+     * Constructs a new {@code Deadline} task with the specified name and deadline time.
      *
      * @param name     The name of the task.
-     * @param deadline The deadline time of the task as a string.
-     * @throws InvalidValueException if the deadline cannot be parsed correctly.
+     * @param deadline The deadline time of the task.
      */
-    public Deadline(String name, String deadline) throws InvalidValueException {
+    public Deadline(String name, LocalDateTime deadline) {
         super(name, SIGNATURE);
-        try {
-            this.deadline = LocalDateTime.parse(deadline, formatter);
-        } catch (DateTimeParseException e) {
-            throw new InvalidValueException(Messages.FAILED_PARSE_TIME);
-        }
+        this.deadline = deadline;
     }
 
     /**
@@ -56,7 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (by " + deadline.format(formatter) + ")";
+        return super.toString() + " (by " + deadline.format(FORMATTER) + ")";
     }
 
     /**
@@ -66,6 +52,6 @@ public class Deadline extends Task {
      */
     @Override
     public List<String> encodedAddedInfo() {
-        return List.of(deadline.format(formatter));
+        return List.of(deadline.format(FORMATTER));
     }
 }

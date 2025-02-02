@@ -7,18 +7,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import mightyduck.command.commands.ByeCommand;
-import mightyduck.command.commands.DeadlineCommand;
-import mightyduck.command.commands.DeleteCommand;
-import mightyduck.command.commands.EventCommand;
-import mightyduck.command.commands.FindCommand;
-import mightyduck.command.commands.ListCommand;
-import mightyduck.command.commands.MarkCommand;
-import mightyduck.command.commands.ToDoCommand;
-import mightyduck.command.commands.UnmarkCommand;
+import mightyduck.command.builder.DeadlineBuilder;
+import mightyduck.command.builder.EventBuilder;
+import mightyduck.command.builder.FindBuilder;
+import mightyduck.command.builder.MarkBuilder;
+import mightyduck.command.builder.ToDoBuilder;
+import mightyduck.command.command.ByeCommand;
+import mightyduck.command.command.Command;
+import mightyduck.command.command.DeadlineCommand;
+import mightyduck.command.command.DeleteCommand;
+import mightyduck.command.command.EventCommand;
+import mightyduck.command.command.FindCommand;
+import mightyduck.command.command.ListCommand;
+import mightyduck.command.command.MarkCommand;
+import mightyduck.command.command.ToDoCommand;
+import mightyduck.command.command.UnmarkCommand;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
-import mightyduck.messages.Messages;
+import mightyduck.exception.InvalidValueException;
+import mightyduck.utils.Messages;
 
 public class ParserTest {
     private Parser parser;
@@ -29,55 +36,55 @@ public class ParserTest {
     }
 
     @Test
-    void parse_byeCommand_success() throws InvalidCommandException {
+    void parse_byeCommand_success() throws InvalidCommandException, InvalidValueException {
         Command command = parser.parse("bye");
         assertInstanceOf(ByeCommand.class, command);
     }
 
     @Test
-    void parse_listCommand_success() throws InvalidCommandException {
+    void parse_listCommand_success() throws InvalidCommandException, InvalidValueException {
         Command command = parser.parse("list");
         assertInstanceOf(ListCommand.class, command);
     }
 
     @Test
-    void parse_markCommand_success() throws InvalidCommandException {
+    void parse_markCommand_success() throws InvalidCommandException, InvalidValueException {
         Command command = parser.parse("mark 1");
         assertInstanceOf(MarkCommand.class, command);
     }
 
     @Test
-    void parse_unmarkCommand_success() throws InvalidCommandException {
+    void parse_unmarkCommand_success() throws InvalidCommandException, InvalidValueException {
         Command command = parser.parse("unmark 1");
         assertInstanceOf(UnmarkCommand.class, command);
     }
 
     @Test
-    void parse_deleteCommand_success() throws InvalidCommandException {
+    void parse_deleteCommand_success() throws InvalidCommandException, InvalidValueException {
         Command command = parser.parse("delete 1");
         assertInstanceOf(DeleteCommand.class, command);
     }
 
     @Test
-    void parse_todoCommand_success() throws InvalidCommandException {
+    void parse_todoCommand_success() throws InvalidCommandException, InvalidValueException {
         Command command = parser.parse("todo read book");
         assertInstanceOf(ToDoCommand.class, command);
     }
 
     @Test
-    void parse_deadlineCommand_success() throws InvalidCommandException {
-        Command command = parser.parse("deadline project /by Sunday");
+    void parse_deadlineCommand_success() throws InvalidCommandException, InvalidValueException {
+        Command command = parser.parse("deadline project /by 2025-02-02 11:20");
         assertInstanceOf(DeadlineCommand.class, command);
     }
 
     @Test
-    void parse_eventCommand_success() throws InvalidCommandException {
-        Command command = parser.parse("event meeting /from 10am /to 12pm");
+    void parse_eventCommand_success() throws InvalidCommandException, InvalidValueException {
+        Command command = parser.parse("event meeting /from 2025-02-02 11:20 /to 2025-02-03 11:20");
         assertInstanceOf(EventCommand.class, command);
     }
 
     @Test
-    void parse_findCommand_success() throws InvalidCommandException {
+    void parse_findCommand_success() throws InvalidCommandException, InvalidValueException {
         Command command = parser.parse("find hello");
         assertInstanceOf(FindCommand.class, command);
     }
@@ -100,19 +107,20 @@ public class ParserTest {
     void parse_markCommandMissingIndex_throwsException() {
         Exception exception = assertThrows(InvalidCommandException.class, () ->
                 parser.parse("mark"));
-        assertEquals(Messages.WRONG_NUMBER_FORMAT, exception.getMessage());
+        assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT, MarkBuilder.COMMAND_FORMAT),
+                exception.getMessage());
     }
 
     @Test
     void parse_unmarkCommandInvalidIndex_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class, () ->
+        Exception exception = assertThrows(InvalidValueException.class, () ->
                 parser.parse("unmark abc"));
         assertEquals(Messages.WRONG_NUMBER_FORMAT, exception.getMessage());
     }
 
     @Test
     void parse_deleteCommandInvalidIndex_throwsException() {
-        Exception exception = assertThrows(InvalidCommandException.class, () ->
+        Exception exception = assertThrows(InvalidValueException.class, () ->
                 parser.parse("delete xyz"));
         assertEquals(Messages.WRONG_NUMBER_FORMAT, exception.getMessage());
     }
@@ -122,7 +130,7 @@ public class ParserTest {
         Exception exception = assertThrows(InvalidCommandException.class, () ->
                 parser.parse("todo"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
-                ToDoCommand.COMMAND_FORMAT), exception.getMessage());
+                ToDoBuilder.COMMAND_FORMAT), exception.getMessage());
     }
 
     @Test
@@ -130,7 +138,7 @@ public class ParserTest {
         Exception exception = assertThrows(InvalidCommandException.class, () ->
                 parser.parse("deadline submit report"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
-                DeadlineCommand.COMMAND_FORMAT), exception.getMessage());
+                DeadlineBuilder.COMMAND_FORMAT), exception.getMessage());
     }
 
     @Test
@@ -138,7 +146,7 @@ public class ParserTest {
         Exception exception = assertThrows(InvalidCommandException.class, () ->
                 parser.parse("deadline /by 10pm"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
-                DeadlineCommand.COMMAND_FORMAT), exception.getMessage());
+                DeadlineBuilder.COMMAND_FORMAT), exception.getMessage());
     }
 
     @Test
@@ -146,7 +154,7 @@ public class ParserTest {
         Exception exception = assertThrows(InvalidCommandException.class, () ->
                 parser.parse("event meeting"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
-                EventCommand.COMMAND_FORMAT), exception.getMessage());
+                EventBuilder.COMMAND_FORMAT), exception.getMessage());
     }
 
     @Test
@@ -154,7 +162,14 @@ public class ParserTest {
         Exception exception = assertThrows(InvalidCommandException.class, () ->
                 parser.parse("event /from 10pm /to 11pm"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
-                EventCommand.COMMAND_FORMAT), exception.getMessage());
+                EventBuilder.COMMAND_FORMAT), exception.getMessage());
+    }
+
+    @Test
+    void parse_eventCommandEndTimeBeforeStartTime_throwsException() {
+        Exception exception = assertThrows(InvalidValueException.class, () ->
+                parser.parse("event meeting /from 2025-02-02 11:20 /to 2025-02-01 11:20"));
+        assertEquals(Messages.END_TIME_BEFORE_START_TIME, exception.getMessage());
     }
 
     @Test
@@ -162,6 +177,6 @@ public class ParserTest {
         Exception exception = assertThrows(InvalidCommandException.class, () ->
                 parser.parse("find"));
         assertEquals(String.format(Messages.WRONG_COMMAND_FORMAT,
-                FindCommand.COMMAND_FORMAT), exception.getMessage());
+                FindBuilder.COMMAND_FORMAT), exception.getMessage());
     }
 }

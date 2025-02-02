@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import mightyduck.exception.InvalidValueException;
-import mightyduck.messages.Messages;
+import mightyduck.utils.Messages;
 import mightyduck.utils.Pair;
 
 /**
@@ -109,16 +109,18 @@ public class TaskManager {
     }
 
     /**
-     * Searches for tasks whose names contain the specified keyword (case-insensitive). It returns
-     * a list of tasks paired with the index of the task in the list.
+     * Searches for tasks whose names contain at least one of the specified keywords
+     * (case-insensitive). It returns a list of tasks paired with the index of the task in the
+     * list.
      *
-     * @param word The keyword to search for in the task names.
+     * @param words The list of keywords to search for in the task names.
      * @return A list of {@link Pair} objects, where each pair contains the index of the matching
      *         task and the task itself.
      */
-    public List<Pair<Integer, Task>> searchKeyword(String word) {
+    public List<Pair<Integer, Task>> searchKeywords(List<String> words) {
         return IntStream.range(0, tasks.size())
-                .filter(i -> tasks.get(i).getName().toLowerCase().contains(word.toLowerCase()))
+                .filter(i -> words.stream().anyMatch(word ->
+                        tasks.get(i).getName().toLowerCase().contains(word.toLowerCase())))
                 .mapToObj(i -> new Pair<>(i, tasks.get(i)))
                 .toList();
     }

@@ -10,7 +10,7 @@ import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.StorageLoadException;
 import mightyduck.exception.StorageWriteException;
-import mightyduck.messages.Messages;
+import mightyduck.utils.Messages;
 
 /**
  * Represents a storage system that handles reading and writing task data to and from a file. The

@@ -1,5 +1,7 @@
 package mightyduck.command;
 
+import mightyduck.command.command.Command;
+
 /**
  * Enum representing the possible types of results returned by a {@link Command}.
  * These result types indicate the outcome of a command execution.
