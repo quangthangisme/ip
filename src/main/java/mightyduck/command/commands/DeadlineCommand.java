@@ -4,6 +4,7 @@ import java.util.List;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
+import mightyduck.command.CommandResultType;
 import mightyduck.data.task.Task;
 import mightyduck.data.task.TaskManager;
 import mightyduck.data.task.type.Deadline;
@@ -65,11 +66,10 @@ public class DeadlineCommand extends Command {
         }
         Task deadline = new Deadline(arguments[0], arguments[1]);
         int index = taskManager.addTask(deadline);
-        return new CommandResult(Messages.ADD_TASK, List.of(new Pair<>(index, deadline)));
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
+        return new CommandResult(
+                CommandResultType.SUCCESS,
+                Messages.ADD_TASK,
+                List.of(new Pair<>(index, deadline))
+        );
     }
 }

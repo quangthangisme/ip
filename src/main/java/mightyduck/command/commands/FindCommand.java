@@ -4,6 +4,7 @@ import java.util.List;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
+import mightyduck.command.CommandResultType;
 import mightyduck.data.task.Task;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
@@ -64,11 +65,10 @@ public class FindCommand extends Command {
                     Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
         List<Pair<Integer, Task>> res = taskManager.searchKeyword(arguments[0]);
-        return new CommandResult((res.isEmpty()) ? Messages.EMPTY_FIND : Messages.FIND, res);
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
+        return new CommandResult(
+                CommandResultType.SUCCESS,
+                res.isEmpty() ? Messages.EMPTY_FIND : Messages.FIND,
+                res
+        );
     }
 }

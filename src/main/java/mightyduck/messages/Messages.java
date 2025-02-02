@@ -56,7 +56,6 @@ public class Messages {
      */
     public static final String WELCOME =
             """
-                    ============================================================
                     Greetings, citizens of Duckville! This is Mighty Duck!
                     How can I serve you today?
                     """;
@@ -68,7 +67,6 @@ public class Messages {
             """
                     Farewell, citizens of Duckville!
                     This is Mighty Duck, flying off to new adventures!
-                    ============================================================
                     """;
 
     /**
@@ -76,9 +74,7 @@ public class Messages {
      */
     public static final String FAILED_INIT =
             """
-                    ============================================================
                     Oh duck, the file loading failed.
-                    ============================================================
                     """;
 
     /**
@@ -87,7 +83,6 @@ public class Messages {
     public static final String FAILED_SAVE =
             """
                     Oh duck, the file saving failed.
-                    ============================================================
                     """;
 
     /**
@@ -120,12 +115,27 @@ public class Messages {
     /**
      * Message displayed when at least one matching task was found.
      */
-    public static final String FIND = "Here's the matching tasks:";
+    public static final String FIND = "Here are the matching tasks:";
 
     /**
      * Message displayed when no matching tasks were found.
      */
     public static final String EMPTY_FIND = "This is a wild goose chase! I cannot find anything.";
+
+    /**
+     * Message displayed when the storage file path is invalid.
+     */
+    public static final String INVALID_STORAGE_PATH = "Storage file should end with '.txt'.";
+
+    /**
+     * Message displayed when an error occurs while writing to the storage.
+     */
+    public static final String WRITE_ERROR = "Error writing to file: %s";
+
+    /**
+     * Message displayed when an error occurs while loading data from storage.
+     */
+    public static final String LOAD_ERROR = "Error loading file: %s";
 
     private Messages() {
     }

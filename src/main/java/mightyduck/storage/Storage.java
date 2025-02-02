@@ -10,6 +10,7 @@ import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.StorageLoadException;
 import mightyduck.exception.StorageWriteException;
+import mightyduck.messages.Messages;
 
 /**
  * Represents a storage system that handles reading and writing task data to and from a file. The
@@ -32,7 +33,7 @@ public class Storage {
     public Storage(String filePath) throws InvalidStoragePathException {
         path = Paths.get(filePath);
         if (!path.toString().endsWith(".txt")) {
-            throw new InvalidStoragePathException("Storage file should end with '.txt'");
+            throw new InvalidStoragePathException(Messages.INVALID_STORAGE_PATH);
         }
     }
 
@@ -48,7 +49,7 @@ public class Storage {
             Files.createDirectories(path.getParent());
             Files.write(path, encodedTasks);
         } catch (IOException ioe) {
-            throw new StorageWriteException("Error writing to file: " + path);
+            throw new StorageWriteException(String.format(Messages.WRITE_ERROR, path));
         }
     }
 
@@ -67,7 +68,7 @@ public class Storage {
         try {
             return TaskDecoder.decodeTasks(Files.readAllLines(path));
         } catch (IOException e) {
-            throw new StorageLoadException("Error loading file: " + path);
+            throw new StorageLoadException(String.format(Messages.LOAD_ERROR, path));
         }
     }
 }

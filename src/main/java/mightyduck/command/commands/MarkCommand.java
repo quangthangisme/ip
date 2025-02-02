@@ -4,6 +4,7 @@ import java.util.List;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
+import mightyduck.command.CommandResultType;
 import mightyduck.data.task.Task;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidValueException;
@@ -46,11 +47,10 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult execute() throws InvalidValueException {
         Task task = taskManager.markTask(index);
-        return new CommandResult(Messages.MARK, List.of(new Pair<>(index, task)));
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
+        return new CommandResult(
+                CommandResultType.SUCCESS,
+                Messages.MARK,
+                List.of(new Pair<>(index, task))
+        );
     }
 }

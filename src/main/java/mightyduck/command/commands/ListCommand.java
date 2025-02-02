@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
+import mightyduck.command.CommandResultType;
 import mightyduck.data.task.Task;
 import mightyduck.data.task.TaskManager;
 import mightyduck.messages.Messages;
@@ -39,14 +40,12 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         List<Task> tasks = taskManager.getTasks();
-        return new CommandResult((tasks.isEmpty()) ? Messages.EMPTY_LIST : Messages.LIST,
+        return new CommandResult(
+                CommandResultType.SUCCESS,
+                tasks.isEmpty() ? Messages.EMPTY_LIST : Messages.LIST,
                 IntStream.range(0, tasks.size())
                         .mapToObj(i -> new Pair<>(i, tasks.get(i)))
-                        .toList());
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
+                        .toList()
+        );
     }
 }
