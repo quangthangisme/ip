@@ -4,6 +4,7 @@ import java.util.List;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
+import mightyduck.command.CommandResultType;
 import mightyduck.data.task.Task;
 import mightyduck.data.task.TaskManager;
 import mightyduck.data.task.type.ToDo;
@@ -64,11 +65,10 @@ public class ToDoCommand extends Command {
         }
         Task todo = new ToDo(arguments[0]);
         int index = taskManager.addTask(todo);
-        return new CommandResult(Messages.ADD_TASK, List.of(new Pair<>(index, todo)));
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
+        return new CommandResult(
+                CommandResultType.SUCCESS,
+                Messages.ADD_TASK,
+                List.of(new Pair<>(index, todo))
+        );
     }
 }

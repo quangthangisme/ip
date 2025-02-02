@@ -4,6 +4,7 @@ import java.util.List;
 
 import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
+import mightyduck.command.CommandResultType;
 import mightyduck.data.task.TaskManager;
 import mightyduck.messages.Messages;
 
@@ -33,11 +34,10 @@ public class ByeCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        return new CommandResult(Messages.BYE, List.of());
-    }
-
-    @Override
-    public boolean isBye() {
-        return true;
+        return new CommandResult(
+                CommandResultType.TERMINATION,
+                Messages.BYE,
+                List.of()
+        );
     }
 }

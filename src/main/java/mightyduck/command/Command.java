@@ -29,12 +29,4 @@ public abstract class Command {
      * @throws InvalidValueException If there is an invalid value encountered during execution.
      */
     public abstract CommandResult execute() throws InvalidValueException;
-
-    /**
-     * Determines if the command represents an exit command.
-     *
-     * @return {@code true} if the command signifies a "bye" or termination, {@code false}
-     *         otherwise.
-     */
-    public abstract boolean isBye();
 }
