@@ -60,6 +60,11 @@ public class MainController extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane is not initialized!";
+        assert dialogContainer != null : "DialogContainer is not initialized!";
+        assert userInput != null : "UserInput field is not initialized!";
+        assert sendButton != null : "SendButton is not initialized!";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         dialogContainer.getChildren().add(
@@ -85,6 +90,8 @@ public class MainController extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert mightyDuck != null : "MightyDuck instance is not initialized!";
+
         String input = userInput.getText();
         addUserDialog(input);
         processCommand(input);
