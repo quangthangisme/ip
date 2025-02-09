@@ -31,6 +31,7 @@ public class Storage {
      * @throws InvalidStoragePathException If the file path does not end with ".txt".
      */
     public Storage(String filePath) throws InvalidStoragePathException {
+        assert filePath != null : "File path should not be null";
         path = Paths.get(filePath);
         if (!path.toString().endsWith(".txt")) {
             throw new InvalidStoragePathException(Messages.INVALID_STORAGE_PATH);
@@ -46,6 +47,7 @@ public class Storage {
     public void save(TaskManager taskManager) throws StorageWriteException {
         try {
             List<String> encodedTasks = taskManager.encodeTasks();
+            assert encodedTasks != null : "Encoded task list should not be null";
             Files.createDirectories(path.getParent());
             Files.write(path, encodedTasks);
         } catch (IOException ioe) {
@@ -65,6 +67,7 @@ public class Storage {
             return new TaskManager();
         }
 
+        assert Files.isReadable(path) : "Storage file should be readable: " + path;
         try {
             return TaskDecoder.decodeTasks(Files.readAllLines(path));
         } catch (IOException e) {

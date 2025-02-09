@@ -20,6 +20,7 @@ public abstract class Command {
      * @param taskManager The {@link TaskManager} instance to be used by this command.
      */
     public Command(TaskManager taskManager) {
+        assert taskManager != null : "The TaskManager should not be null";
         this.taskManager = taskManager;
     }
 

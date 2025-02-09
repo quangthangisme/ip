@@ -5,7 +5,6 @@ import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
 import mightyduck.exception.InvalidValueException;
 
-
 /**
  * Abstract base class for builders that create {@link Command} objects from user input.
  */
@@ -21,6 +20,7 @@ public abstract class Builder {
      * @param taskManager The {@link TaskManager} instance that will be used to manage tasks.
      */
     public Builder(TaskManager taskManager) {
+        assert taskManager != null : "The TaskManager should not be null";
         this.taskManager = taskManager;
     }
 
@@ -29,7 +29,7 @@ public abstract class Builder {
      *
      * @param input The user input string that will be parsed.
      * @return The corresponding {@link Command} object created from the input.
-     * @throws InvalidValueException If there is an invalid value in the input.
+     * @throws InvalidValueException   If there is an invalid value in the input.
      * @throws InvalidCommandException If the input command format is invalid.
      */
     public abstract Command fromInput(String input)
