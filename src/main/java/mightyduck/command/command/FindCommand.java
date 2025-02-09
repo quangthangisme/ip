@@ -39,11 +39,11 @@ public class FindCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        List<Pair<Integer, Task>> res = taskManager.searchKeywords(searchTerms);
+        List<Pair<Integer, Task>> result = taskManager.searchKeywords(searchTerms);
         return new CommandResult(
                 CommandResultType.SUCCESS,
-                res.isEmpty() ? Messages.EMPTY_FIND : Messages.FIND,
-                res
+                result.isEmpty() ? Messages.EMPTY_FIND : Messages.FIND,
+                result
         );
     }
 }
