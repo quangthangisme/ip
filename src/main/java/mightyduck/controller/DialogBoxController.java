@@ -19,6 +19,8 @@ import javafx.scene.layout.HBox;
  * containing text from the speaker.
  */
 public class DialogBoxController extends HBox {
+    private static final String VIEW_PATH = "/view/DialogBoxView.fxml";
+
     @FXML
     private Label dialog;
     @FXML
@@ -33,12 +35,12 @@ public class DialogBoxController extends HBox {
     private DialogBoxController(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    MainController.class.getResource("/view/DialogBoxView.fxml"));
+                    MainController.class.getResource(VIEW_PATH));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error loading DialogBox FXML: " + e.getMessage(), e);
         }
 
         dialog.setText(text);
@@ -74,7 +76,7 @@ public class DialogBoxController extends HBox {
      * @return A new {@code DialogBoxController} representing {@code MightyDuck}r's dialog.
      */
     public static DialogBoxController getDuckDialog(String text, Image img) {
-        var db = new DialogBoxController(text, img);
+        DialogBoxController db = new DialogBoxController(text, img);
         db.flip();
         return db;
     }

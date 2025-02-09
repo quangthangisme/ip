@@ -44,43 +44,84 @@ public class EventBuilder extends Builder {
     /**
      * Creates a {@code EventCommand} from user-provided input.
      *
-     * @param input       The user-provided input string, expected to contain the task name, the
-     *                    start time, and the end time in the format "task_name /by yyyy-MM-dd
-     *                    HH:mm".
+     * @param input The user-provided input string, expected to contain the task name, the start
+     *              time, and the end time in the format "task_name /by yyyy-MM-dd HH:mm".
      * @return A new {@code EventCommand} instance.
      * @throws InvalidCommandException If the arguments are missing, incorrectly formatted.
      * @throws InvalidValueException   If the start or end time is invalid.
      */
-    public EventCommand fromInput(String input)
-            throws InvalidValueException, InvalidCommandException {
+    public EventCommand fromInput(String input) throws InvalidValueException,
+            InvalidCommandException {
+        String[] parts = splitInput(input);
+        String taskName = parts[0].trim();
+        String timeStr = parts[1].trim();
+
+        String[] timeParts = splitTime(timeStr);
+        LocalDateTime startTime = parseTime(timeParts[0]);
+        LocalDateTime endTime = parseTime(timeParts[1]);
+        validateTimeOrder(startTime, endTime);
+
+        return new EventCommand(taskManager, taskName, startTime, endTime);
+    }
+
+    /**
+     * Splits the input string by the first keyword and validates the format.
+     *
+     * @param input the input string to be split
+     * @return an array of strings containing the task name and time part
+     * @throws InvalidCommandException if the input format is incorrect
+     */
+    private String[] splitInput(String input) throws InvalidCommandException {
         String[] parts = input.split(KEYWORDS.get(0), 2);
         if (parts[0].trim().isEmpty() || parts.length != 2) {
             throw new InvalidCommandException(
                     String.format(Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
+        return parts;
+    }
 
-        String taskName = parts[0].trim();
-        String timeStr = parts[1].trim();
-
+    /**
+     * Splits the time portion of the input string by the second keyword.
+     *
+     * @param timeStr the time portion of the input string to be split
+     * @return an array containing the start time and end time as strings
+     * @throws InvalidCommandException if the time format is incorrect
+     */
+    private String[] splitTime(String timeStr) throws InvalidCommandException {
         String[] timeParts = timeStr.split(KEYWORDS.get(1), 2);
         if (timeParts.length != 2) {
             throw new InvalidCommandException(
                     String.format(Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
         }
+        return timeParts;
+    }
 
-        LocalDateTime eTime;
-        LocalDateTime sTime;
+    /**
+     * Parses the given time string into a LocalDateTime object.
+     *
+     * @param time the time string to be parsed
+     * @return the LocalDateTime representation of the time string
+     * @throws InvalidValueException if the time string is not in a valid format
+     */
+    private LocalDateTime parseTime(String time) throws InvalidValueException {
         try {
-            sTime = LocalDateTime.parse(timeParts[0].trim(), FORMATTER);
-            eTime = LocalDateTime.parse(timeParts[1].trim(), FORMATTER);
+            return LocalDateTime.parse(time.trim(), FORMATTER);
         } catch (DateTimeParseException e) {
             throw new InvalidValueException(Messages.FAILED_PARSE_TIME);
         }
+    }
 
-        if (eTime.isBefore(sTime)) {
+    /**
+     * Validates that the end time is not before the start time.
+     *
+     * @param startTime the start time of the event
+     * @param endTime   the end time of the event
+     * @throws InvalidValueException if the end time is before the start time
+     */
+    private void validateTimeOrder(LocalDateTime startTime, LocalDateTime endTime)
+            throws InvalidValueException {
+        if (endTime.isBefore(startTime)) {
             throw new InvalidValueException(Messages.END_TIME_BEFORE_START_TIME);
         }
-
-        return new EventCommand(taskManager, taskName, sTime, eTime);
     }
 }

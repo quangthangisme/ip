@@ -8,6 +8,26 @@ import java.util.List;
 public abstract class Task {
 
     /**
+     * A string representing the completed status of a task in storage.
+     */
+    public static final String STATUS_DONE_STORAGE = "1";
+
+    /**
+     * A string representing the incomplete status of a task in storage.
+     */
+    public static final String STATUS_NOT_DONE_STORAGE = "0";
+
+    /**
+     * A string representing the completed status of a task for display.
+     */
+    private static final String STATUS_DONE_DISPLAY = "X";
+
+    /**
+     * A string representing the incomplete status of a task for display.
+     */
+    private static final String STATUS_NOT_DONE_DISPLAY = " ";
+
+    /**
      * The name of the task.
      */
     private final String name;
@@ -40,7 +60,8 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + signature + "][" + (isDone ? "X" : " ") + "] " + name;
+        return "[" + signature + "][" + (isDone ? STATUS_DONE_DISPLAY : STATUS_NOT_DONE_DISPLAY)
+                + "] " + name;
     }
 
     /**
@@ -85,7 +106,8 @@ public abstract class Task {
     public String encode() {
         StringBuilder encodedTaskBuilder = new StringBuilder();
         encodedTaskBuilder.append(signature);
-        encodedTaskBuilder.append("\t").append(isDone ? 1 : 0);
+        encodedTaskBuilder.append("\t").append(
+                isDone ? STATUS_DONE_STORAGE : STATUS_NOT_DONE_STORAGE);
         encodedTaskBuilder.append("\t").append(name);
         encodedAddedInfo().forEach(info -> encodedTaskBuilder.append("\t").append(info));
         return encodedTaskBuilder.toString();

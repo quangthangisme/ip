@@ -46,11 +46,13 @@ public class DeleteBuilder extends Builder {
                     COMMAND_FORMAT));
         }
 
+        int index;
         try {
-            int index = Integer.parseInt(parts[0]) - 1;
-            return new DeleteCommand(taskManager, index);
+            index = Integer.parseInt(parts[0]) - 1;
         } catch (NumberFormatException e) {
             throw new InvalidValueException(Messages.WRONG_NUMBER_FORMAT);
         }
+
+        return new DeleteCommand(taskManager, index);
     }
 }
