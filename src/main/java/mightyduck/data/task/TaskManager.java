@@ -32,6 +32,7 @@ public class TaskManager {
      * @return The index at which the task was added.
      */
     public int addTask(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
         return getTaskCount() - 1;
     }
@@ -118,6 +119,7 @@ public class TaskManager {
      *         task and the task itself.
      */
     public List<Pair<Integer, Task>> searchKeywords(List<String> words) {
+        assert words != null && !words.isEmpty() : "Search keywords should not be null or empty";
         return IntStream.range(0, tasks.size())
                 .filter(i -> words.stream().anyMatch(word ->
                         tasks.get(i).getName().toLowerCase().contains(word.toLowerCase())))
