@@ -125,7 +125,8 @@ public class MainController extends AnchorPane {
         addDuckDialog(commandResult);
 
         if (commandResult.commandResultType() == CommandResultType.TERMINATION) {
-            exitApplication();
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
         }
     }
 
@@ -150,15 +151,7 @@ public class MainController extends AnchorPane {
      * Terminates the application after a short delay.
      */
     private void exitApplication() {
-        new Thread(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            Platform.runLater(() -> System.exit(0));
-        }).start();
+        Platform.runLater(() -> System.exit(0));
     }
 
     /**
