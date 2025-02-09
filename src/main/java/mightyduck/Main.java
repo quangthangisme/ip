@@ -14,6 +14,8 @@ import mightyduck.controller.MainController;
  */
 public class Main extends Application {
 
+    private static final String VIEW_PATH = "/view/MainView.fxml";
+
     /**
      * Default constructor.
      */
@@ -23,7 +25,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(VIEW_PATH));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

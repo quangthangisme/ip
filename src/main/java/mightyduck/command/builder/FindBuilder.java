@@ -41,7 +41,6 @@ public class FindBuilder extends Builder {
      */
     public FindCommand fromInput(String input) throws InvalidCommandException {
         String[] parts = input.trim().split("\\s+");
-
         if (input.trim().isEmpty()) {
             throw new InvalidCommandException(String.format(Messages.WRONG_COMMAND_FORMAT,
                     COMMAND_FORMAT));

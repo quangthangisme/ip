@@ -58,7 +58,7 @@ public class TaskDecoder {
             validateParts(parts, encodedTask);
 
             String signature = parts[0];
-            boolean isDone = parts[1].equals("1");
+            boolean isDone = parts[1].equals(Task.STATUS_DONE_STORAGE);
 
             List<String> info = new ArrayList<>(Arrays.asList(parts).subList(2, parts.length));
 
@@ -81,8 +81,10 @@ public class TaskDecoder {
      * @param encodedTask The original encoded task string for error reporting.
      * @throws StorageLoadException If the encoded task string is invalid.
      */
-    private static void validateParts(String[] parts, String encodedTask) throws StorageLoadException {
-        if (parts.length < 3 || (!parts[1].equals("1") && !parts[1].equals("0"))) {
+    private static void validateParts(String[] parts, String encodedTask)
+            throws StorageLoadException {
+        if (parts.length < 3 || (!parts[1].equals(Task.STATUS_DONE_STORAGE)
+                && !parts[1].equals(Task.STATUS_NOT_DONE_STORAGE))) {
             throw new StorageLoadException(
                     String.format(Messages.INVALID_ENCODED_FORMAT, encodedTask));
         }
@@ -156,7 +158,8 @@ public class TaskDecoder {
      * @return An {@link Event} task object.
      * @throws StorageLoadException If the task is in an invalid format.
      */
-    private static Task parseEvent(List<String> info, String encodedTask) throws StorageLoadException {
+    private static Task parseEvent(List<String> info, String encodedTask)
+            throws StorageLoadException {
         if (info.size() != 3) {
             throw new StorageLoadException(String.format(Messages.INVALID_ENCODED_FORMAT,
                     encodedTask));

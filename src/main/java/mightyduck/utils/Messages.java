@@ -72,16 +72,6 @@ public class Messages {
                     """;
 
     /**
-     * Message displayed when file loading fails.
-     */
-    public static final String FAILED_INIT = "Oh duck, the file loading failed.";
-
-    /**
-     * Message displayed when file saving fails.
-     */
-    public static final String FAILED_SAVE = "Oh duck, the file saving failed.";
-
-    /**
      * General exception message displayed when an error occurs.
      */
     public static final String EXCEPTION = "Something's a-fowl! ";

@@ -52,7 +52,6 @@ public class DeadlineBuilder extends Builder {
     public DeadlineCommand fromInput(String input)
             throws InvalidValueException, InvalidCommandException {
         String[] parts = input.split(KEYWORD, 2);
-
         if (parts[0].trim().isEmpty() || parts.length != 2) {
             throw new InvalidCommandException(
                     String.format(Messages.WRONG_COMMAND_FORMAT, COMMAND_FORMAT));
@@ -60,12 +59,13 @@ public class DeadlineBuilder extends Builder {
 
         String taskName = parts[0].trim();
         String deadlineTimeStr = parts[1].trim();
-
+        LocalDateTime dlTime;
         try {
-            LocalDateTime dlTime = LocalDateTime.parse(deadlineTimeStr, FORMATTER);
-            return new DeadlineCommand(taskManager, taskName, dlTime);
+            dlTime = LocalDateTime.parse(deadlineTimeStr, FORMATTER);
         } catch (DateTimeParseException e) {
             throw new InvalidValueException(Messages.FAILED_PARSE_TIME);
         }
+
+        return new DeadlineCommand(taskManager, taskName, dlTime);
     }
 }
