@@ -15,9 +15,9 @@ import javafx.scene.layout.VBox;
 import mightyduck.MightyDuck;
 import mightyduck.command.CommandResult;
 import mightyduck.command.CommandResultType;
-import mightyduck.data.task.Task;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.StorageLoadException;
+import mightyduck.task.Task;
 import mightyduck.utils.Messages;
 import mightyduck.utils.Pair;
 
@@ -66,10 +66,6 @@ public class MainController extends AnchorPane {
         assert sendButton != null : "SendButton is not initialized!";
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-        dialogContainer.getChildren().add(
-                DialogBoxController.getDuckDialog(Messages.WELCOME, duckImage)
-        );
     }
 
     /**
@@ -78,6 +74,9 @@ public class MainController extends AnchorPane {
     public void initializeMightyDuck() {
         try {
             mightyDuck = new MightyDuck();
+            dialogContainer.getChildren().add(
+                    DialogBoxController.getDuckDialog(Messages.WELCOME, duckImage)
+            );
         } catch (InvalidStoragePathException | StorageLoadException e) {
             showErrorAlert(INITIALIZATION_ERROR_HEADER, e.getMessage());
             Platform.runLater(() -> System.exit(0));

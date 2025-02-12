@@ -16,12 +16,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import mightyduck.data.task.TaskManager;
-import mightyduck.data.task.type.ToDo;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.exception.StorageLoadException;
 import mightyduck.exception.StorageWriteException;
+import mightyduck.task.TaskManager;
+import mightyduck.task.ToDo;
 
 class StorageTest {
     private static final String TEST_FILE_PATH = "./data/test.txt";
