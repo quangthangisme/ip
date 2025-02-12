@@ -15,9 +15,9 @@ import javafx.scene.layout.VBox;
 import mightyduck.MightyDuck;
 import mightyduck.command.CommandResult;
 import mightyduck.command.CommandResultType;
-import mightyduck.data.task.Task;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.StorageLoadException;
+import mightyduck.task.Task;
 import mightyduck.utils.Messages;
 import mightyduck.utils.Pair;
 

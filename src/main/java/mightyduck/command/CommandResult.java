@@ -2,8 +2,8 @@ package mightyduck.command;
 
 import java.util.List;
 
-import mightyduck.data.task.Task;
-import mightyduck.data.task.TaskManager;
+import mightyduck.task.Task;
+import mightyduck.task.TaskManager;
 import mightyduck.utils.Pair;
 
 /**

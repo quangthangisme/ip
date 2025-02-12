@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import mightyduck.data.task.Task;
-import mightyduck.data.task.TaskManager;
-import mightyduck.data.task.type.Deadline;
-import mightyduck.data.task.type.Event;
-import mightyduck.data.task.type.ToDo;
 import mightyduck.exception.StorageLoadException;
+import mightyduck.task.Deadline;
+import mightyduck.task.Event;
+import mightyduck.task.Task;
+import mightyduck.task.TaskManager;
+import mightyduck.task.ToDo;
 import mightyduck.utils.Messages;
 
 /**

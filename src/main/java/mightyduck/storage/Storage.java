@@ -6,10 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.StorageLoadException;
 import mightyduck.exception.StorageWriteException;
+import mightyduck.task.TaskManager;
 import mightyduck.utils.Messages;
 
 /**

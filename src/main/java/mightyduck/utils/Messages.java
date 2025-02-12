@@ -16,12 +16,12 @@ public class Messages {
     /**
      * Message displayed when listing tasks.
      */
-    public static final String LIST = "Here are the tasks in your list:";
+    public static final String LIST = "Here's what's on your agen-duck:";
 
     /**
      * Message displayed when a task is marked as completed.
      */
-    public static final String MARK = "Quack-cellent job, citizen! The task is completed.";
+    public static final String MARK = "Egg-cellent job, citizen!";
 
     /**
      * Message displayed when a task is unmarked (incomplete).
@@ -31,7 +31,7 @@ public class Messages {
     /**
      * Message displayed when a task is deleted.
      */
-    public static final String DELETE = "One less thing to pond-er about!";
+    public static final String DELETE = "No need to pond-er so many things!";
 
     /**
      * Message displayed when a new task is added.
@@ -101,7 +101,7 @@ public class Messages {
     /**
      * Message displayed when at least one matching task was found.
      */
-    public static final String FIND = "Here are the matching tasks:";
+    public static final String FIND = "Here's what I can find:";
 
     /**
      * Message displayed when no matching tasks were found.
@@ -124,14 +124,14 @@ public class Messages {
     public static final String LOAD_ERROR = "Error loading file: %s";
 
     /**
-     * Message displayed when a task is tagged.
+     * Message displayed when some tasks is tagged.
      */
-    public static final String TAG = "Duck duck goose, the task is tagged!";
+    public static final String TAG = "Duck duck goose, all tasks are tagged!";
 
     /**
      * Message displayed when attempting to add an already existing tag to a task.
      */
-    public static final String TAG_DUPLICATION =
+    public static final String TAG_ALREADY_EXISTED =
             "Duck duck goose, this task is already tagged with %s: %s";
 
     /**
@@ -143,18 +143,28 @@ public class Messages {
     /**
      * Message displayed when a task is untagged.
      */
-    public static final String UNTAG = "Duck duck goose, the task is untagged!";
+    public static final String UNTAG = "Duck duck goose, all tasks are untagged!";
 
     /**
      * Message displayed when attempting to mark an already marked task.
      */
-    public static final String ALREADY_MARKED = "This task is already duck-umented as done: %s!";
+    public static final String ALREADY_MARKED = "This task is already duck-umented as done: %s";
 
     /**
      * Message displayed when attempting to unmark an already unmarked task.
      */
     public static final String ALREADY_UNMARKED =
-            "This task is already duck-umented as not done: %s!";
+            "This task is already duck-umented as not done: %s";
+
+    /**
+     * Message displayed when attempting to add a numeric tag.
+     */
+    public static final String INVALID_TAG_FORMAT = "The tag cannot be numeric: %s";
+
+    /**
+     * Message displayed when there are duplicate tags in the command.
+     */
+    public static final String DUPLICATE_TAG = "This tag is duck-plicated: %s";
 
     /**
      * Private constructor to prevent instantiation of this utility class

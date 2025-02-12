@@ -2,17 +2,17 @@ package mightyduck;
 
 import java.util.List;
 
+import mightyduck.command.Command;
 import mightyduck.command.CommandResult;
 import mightyduck.command.CommandResultType;
-import mightyduck.command.Parser;
-import mightyduck.command.command.Command;
-import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.InvalidValueException;
 import mightyduck.exception.StorageLoadException;
 import mightyduck.exception.StorageWriteException;
+import mightyduck.parser.Parser;
 import mightyduck.storage.Storage;
+import mightyduck.task.TaskManager;
 import mightyduck.utils.Messages;
 
 /**
