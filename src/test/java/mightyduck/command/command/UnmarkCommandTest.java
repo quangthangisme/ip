@@ -21,7 +21,7 @@ public class UnmarkCommandTest {
     private TaskManager taskManager;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws InvalidValueException {
         taskManager = new TaskManager();
         Task todo = new ToDo("todo");
         todo.mark();
@@ -43,6 +43,6 @@ public class UnmarkCommandTest {
         UnmarkCommand command = new UnmarkCommand(taskManager, 2);
         InvalidValueException exception =
                 assertThrows(InvalidValueException.class, command::execute);
-        assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
+        assertEquals(String.format(Messages.OUT_OF_RANGE_INDEX, 2), exception.getMessage());
     }
 }

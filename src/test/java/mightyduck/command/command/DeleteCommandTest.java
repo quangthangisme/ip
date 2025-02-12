@@ -35,7 +35,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand(taskManager, 1);
         InvalidValueException exception = assertThrows(InvalidValueException.class,
                 command::execute);
-        assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
+        assertEquals(String.format(Messages.OUT_OF_RANGE_INDEX, 1), exception.getMessage());
         assertEquals(1, taskManager.getTasks().size());
     }
 }

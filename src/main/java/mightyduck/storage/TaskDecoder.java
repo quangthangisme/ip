@@ -4,10 +4,10 @@ import static mightyduck.utils.DateTimeUtils.FORMATTER;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import mightyduck.data.task.Task;
 import mightyduck.data.task.TaskManager;
@@ -54,19 +54,18 @@ public class TaskDecoder {
         TaskManager taskManager = new TaskManager();
 
         for (String encodedTask : encodedTasks) {
-            String[] parts = encodedTask.split("\t");
+            String[] parts = encodedTask.split("\\|", -1);
             validateParts(parts, encodedTask);
 
             String signature = parts[0];
             boolean isDone = parts[1].equals(Task.STATUS_DONE_STORAGE);
+            List<String> tags = Arrays.stream(parts[2].split(",")).filter(s -> !s.isEmpty())
+                    .distinct().collect(Collectors.toList());
+            String name = parts[3];
+            List<String> info = Arrays.stream(parts[4].split(",")).filter(s -> !s.isEmpty())
+                    .toList();
 
-            List<String> info = new ArrayList<>(Arrays.asList(parts).subList(2, parts.length));
-
-            Task task = parseTaskBySignature(signature, info, encodedTask);
-
-            if (isDone) {
-                task.mark();
-            }
+            Task task = parseTaskBySignature(signature, name, isDone, tags, info, encodedTask);
             taskManager.addTask(task);
         }
 
@@ -74,8 +73,8 @@ public class TaskDecoder {
     }
 
     /**
-     * Validates the structure of the encoded task string. Checks if there are at least 3 parts and
-     * if the status is either "1" (done) or "0" (not done).
+     * Validates the structure of the encoded task string. Checks if there are 5 parts and if the
+     * status is either "1" (done) or "0" (not done).
      *
      * @param parts       The split parts of the encoded task string.
      * @param encodedTask The original encoded task string for error reporting.
@@ -83,7 +82,7 @@ public class TaskDecoder {
      */
     private static void validateParts(String[] parts, String encodedTask)
             throws StorageLoadException {
-        if (parts.length < 3 || (!parts[1].equals(Task.STATUS_DONE_STORAGE)
+        if (parts.length != 5 || (!parts[1].equals(Task.STATUS_DONE_STORAGE)
                 && !parts[1].equals(Task.STATUS_NOT_DONE_STORAGE))) {
             throw new StorageLoadException(
                     String.format(Messages.INVALID_ENCODED_FORMAT, encodedTask));
@@ -94,12 +93,16 @@ public class TaskDecoder {
      * Selects the appropriate task parser based on the task signature and parses the task.
      *
      * @param signature   The signature of the task.
+     * @param name        The name of the task.
+     * @param isDone      The completion status of the task.
+     * @param tags        The list of tags associated with the task.
      * @param info        The information associated with the task (e.g., name, date, time).
      * @param encodedTask The original encoded task string for error reporting.
      * @return The parsed {@link Task} object.
      * @throws StorageLoadException If the task format is invalid or cannot be parsed.
      */
-    private static Task parseTaskBySignature(String signature, List<String> info,
+    private static Task parseTaskBySignature(String signature, String name, boolean isDone,
+                                             List<String> tags, List<String> info,
                                              String encodedTask)
             throws StorageLoadException {
         TaskParser parser = TASK_PARSERS.get(signature);
@@ -107,27 +110,30 @@ public class TaskDecoder {
             throw new StorageLoadException(String.format(Messages.INVALID_ENCODED_FORMAT,
                     encodedTask));
         }
-        return parser.parse(info, encodedTask);
+        return parser.parse(name, isDone, tags, info, encodedTask);
     }
 
     /**
      * Parses a {@link Deadline} task from the provided information.
      *
-     * @param info        The information associated with the task, containing the name and
-     *                    deadline.
+     * @param name        The name of the task.
+     * @param isDone      The completion status of the task.
+     * @param tags        The list of tags associated with the task.
+     * @param info        The information associated with the task, containing the deadline.
      * @param encodedTask The original encoded task string for error reporting.
      * @return A {@link Deadline} task object.
      * @throws StorageLoadException If the task is in an invalid format.
      */
-    private static Task parseDeadline(List<String> info, String encodedTask)
+    private static Task parseDeadline(String name, boolean isDone, List<String> tags,
+                                      List<String> info, String encodedTask)
             throws StorageLoadException {
-        if (info.size() != 2) {
+        if (info.size() != 1) {
             throw new StorageLoadException(String.format(Messages.INVALID_ENCODED_FORMAT,
                     encodedTask));
         }
         try {
-            LocalDateTime dlTime = LocalDateTime.parse(info.get(1), FORMATTER);
-            return new Deadline(info.get(0), dlTime);
+            LocalDateTime dlTime = LocalDateTime.parse(info.get(0), FORMATTER);
+            return new Deadline(name, isDone, dlTime, tags);
         } catch (DateTimeParseException e) {
             throw new StorageLoadException(e.getMessage());
         }
@@ -136,45 +142,58 @@ public class TaskDecoder {
     /**
      * Parses a {@link ToDo} task from the provided information.
      *
-     * @param info        The information associated with the task, containing the name.
+     * @param name        The name of the task.
+     * @param isDone      The completion status of the task.
+     * @param tags        The list of tags associated with the task.
+     * @param info        Additional details related to the task, which is empty for a {@link ToDo}
+     *                    task.
      * @param encodedTask The original encoded task string for error reporting.
      * @return A {@link ToDo} task object.
      */
-    private static Task parseToDo(List<String> info, String encodedTask)
+    private static Task parseToDo(String name, boolean isDone, List<String> tags,
+                                  List<String> info, String encodedTask)
             throws StorageLoadException {
-        if (info.size() != 1) {
+        if (!info.isEmpty()) {
             throw new StorageLoadException(String.format(Messages.INVALID_ENCODED_FORMAT,
                     encodedTask));
         }
-        return new ToDo(info.get(0));
+        return new ToDo(name, isDone, tags);
     }
 
     /**
      * Parses an Event task from the provided information.
      *
-     * @param info        The information associated with the task, containing the name, the start
-     *                    time, and the end time for the event.
+     * @param name        The name of the task.
+     * @param isDone      The completion status of the task.
+     * @param tags        The list of tags associated with the task.
+     * @param info        Additional details related to the task, containing the start and the end
+     *                    time for the event.
      * @param encodedTask The original encoded task string for error reporting.
      * @return An {@link Event} task object.
      * @throws StorageLoadException If the task is in an invalid format.
      */
-    private static Task parseEvent(List<String> info, String encodedTask)
+    private static Task parseEvent(String name, boolean isDone, List<String> tags,
+                                   List<String> info, String encodedTask)
             throws StorageLoadException {
-        if (info.size() != 3) {
+        if (info.size() != 2) {
             throw new StorageLoadException(String.format(Messages.INVALID_ENCODED_FORMAT,
                     encodedTask));
         }
+
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         try {
-            LocalDateTime startTime = LocalDateTime.parse(info.get(1), FORMATTER);
-            LocalDateTime endTime = LocalDateTime.parse(info.get(2), FORMATTER);
-            if (endTime.isBefore(startTime)) {
-                throw new StorageLoadException(String.format(Messages.INVALID_ENCODED_FORMAT,
-                        encodedTask));
-            }
-            return new Event(info.get(0), startTime, endTime);
+            startTime = LocalDateTime.parse(info.get(0), FORMATTER);
+            endTime = LocalDateTime.parse(info.get(1), FORMATTER);
         } catch (DateTimeParseException e) {
             throw new StorageLoadException(e.getMessage());
         }
+        if (endTime.isBefore(startTime)) {
+            throw new StorageLoadException(String.format(Messages.INVALID_ENCODED_FORMAT,
+                    encodedTask));
+        }
+
+        return new Event(name, isDone, startTime, endTime, tags);
     }
 
     /**
@@ -185,11 +204,15 @@ public class TaskDecoder {
         /**
          * Parses a task from the provided information.
          *
-         * @param info        The information associated with the task.
+         * @param name        The name of the task.
+         * @param isDone      The completion status of the task.
+         * @param tags        The list of tags associated with the task.
+         * @param info        The information associated with the task (e.g., name, date, time).
          * @param encodedTask The original encoded task string for error reporting.
          * @return The parsed {@link Task}.
          * @throws StorageLoadException If the task cannot be parsed.
          */
-        Task parse(List<String> info, String encodedTask) throws StorageLoadException;
+        Task parse(String name, boolean isDone, List<String> tags, List<String> info,
+                   String encodedTask) throws StorageLoadException;
     }
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,8 @@ public class DeadlineCommandTest {
     void execute_validArguments_addsDeadlineTask() throws InvalidValueException {
         assertEquals(0, taskManager.getTasks().size());
 
-        DeadlineCommand command = new DeadlineCommand(taskManager, "test", LocalDateTime.now());
+        DeadlineCommand command = new DeadlineCommand(taskManager, "test", LocalDateTime.now(),
+                List.of());
         command.execute();
 
         assertEquals(1, taskManager.getTasks().size());

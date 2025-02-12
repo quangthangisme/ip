@@ -46,7 +46,7 @@ public class TaskManager {
      */
     public Task getTask(int index) throws InvalidValueException {
         if (index < 0 || index >= tasks.size()) {
-            throw new InvalidValueException(Messages.OUT_OF_RANGE_INDEX);
+            throw new InvalidValueException(String.format(Messages.OUT_OF_RANGE_INDEX, index));
         }
         return tasks.get(index);
     }
@@ -104,9 +104,37 @@ public class TaskManager {
      */
     public Task deleteTask(int index) throws InvalidValueException {
         if (index < 0 || index >= tasks.size()) {
-            throw new InvalidValueException(Messages.OUT_OF_RANGE_INDEX);
+            throw new InvalidValueException(String.format(Messages.OUT_OF_RANGE_INDEX, index));
         }
         return tasks.remove(index);
+    }
+
+    /**
+     * Assigns the task at the specified index the specified tags.
+     *
+     * @param index The index of the task to be tagged.
+     * @param tags   The list of tags to be assigned.
+     * @return The {@link Task} that was tagged.
+     * @throws InvalidValueException If the index is out of range or any of the tags already exist.
+     */
+    public Task tagTask(int index, List<String> tags) throws InvalidValueException {
+        Task task = getTask(index);
+        task.addTags(tags);
+        return task;
+    }
+
+    /**
+     * Remove from the task at the specified index the specified tags.
+     *
+     * @param index The index of the task to be untagged.
+     * @param tags   The list of tags to be removed.
+     * @return The {@link Task} that was untagged.
+     * @throws InvalidValueException If the index is out of range or any of the tags are invalid.
+     */
+    public Task untagTask(int index, List<String> tags) throws InvalidValueException {
+        Task task = getTask(index);
+        task.removeTags(tags);
+        return task;
     }
 
     /**

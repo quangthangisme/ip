@@ -32,6 +32,11 @@ public class EventCommand extends Command {
     private final LocalDateTime endTime;
 
     /**
+     * The tags provided for creating the {@link Event} task.
+     */
+    private final List<String> tags;
+
+    /**
      * Constructs a {@code EventCommand} with the specified {@link TaskManager} and arguments for
      * the event task.
      *
@@ -39,13 +44,15 @@ public class EventCommand extends Command {
      * @param taskName    The name of the task to be created.
      * @param startTime   The {@link LocalDateTime} representing the start time of the task.
      * @param endTime     The {@link LocalDateTime} representing the end time of the task.
+     * @param tags        The list of tags associated with the task.
      */
     public EventCommand(TaskManager taskManager, String taskName, LocalDateTime startTime,
-                        LocalDateTime endTime) {
+                        LocalDateTime endTime, List<String> tags) {
         super(taskManager);
         this.taskName = taskName;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.tags = tags;
     }
 
     /**
@@ -57,7 +64,7 @@ public class EventCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        Task event = new Event(taskName, startTime, endTime);
+        Task event = new Event(taskName, startTime, endTime, tags);
         int index = taskManager.addTask(event);
         return new CommandResult(
                 CommandResultType.SUCCESS,

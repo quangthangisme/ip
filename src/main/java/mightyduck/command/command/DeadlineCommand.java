@@ -27,17 +27,25 @@ public class DeadlineCommand extends Command {
     private final LocalDateTime deadline;
 
     /**
+     * The tags provided for creating the {@link Deadline} task.
+     */
+    private final List<String> tags;
+
+    /**
      * Constructs a {@code DeadlineCommand} with the specified {@link TaskManager} and arguments for
      * the deadline task.
      *
      * @param taskManager The {@link TaskManager} instance to add the deadline task to.
      * @param taskName    The name of the task to be created.
      * @param deadline    The {@link LocalDateTime} representing the deadline time of the task.
+     * @param tags        The list of tags associated with the task.
      */
-    public DeadlineCommand(TaskManager taskManager, String taskName, LocalDateTime deadline) {
+    public DeadlineCommand(TaskManager taskManager, String taskName, LocalDateTime deadline,
+                           List<String> tags) {
         super(taskManager);
         this.taskName = taskName;
         this.deadline = deadline;
+        this.tags = tags;
     }
 
     /**
@@ -49,7 +57,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        Task deadlineTask = new Deadline(taskName, deadline);
+        Task deadlineTask = new Deadline(taskName, deadline, tags);
         int index = taskManager.addTask(deadlineTask);
         return new CommandResult(
                 CommandResultType.SUCCESS,

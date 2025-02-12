@@ -1,5 +1,9 @@
 package mightyduck.command.builder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import mightyduck.command.command.ToDoCommand;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
@@ -18,7 +22,12 @@ public class ToDoBuilder extends Builder {
     /**
      * The format of the "todo" command.
      */
-    public static final String COMMAND_FORMAT = "todo <name>";
+    public static final String COMMAND_FORMAT = "todo <name> [/tags <tag1> <tag>2 ...]";
+
+    /**
+     * The keyword indicating the tags.
+     */
+    private static final String TAGS_KEYWORD = "/tags";
 
     /**
      * Constructs a new {@link ToDoBuilder} with the specified {@link TaskManager}.
@@ -32,7 +41,7 @@ public class ToDoBuilder extends Builder {
     /**
      * Creates a {@code ToDoCommand} from user-provided input.
      *
-     * @param input       The user-provided input string, expected to contain the task's name.
+     * @param input The user-provided input string, expected to contain the task's name.
      * @return A new {@code ToDoCommand} instance.
      * @throws InvalidCommandException If the input is incorrectly formatted.
      */
@@ -42,6 +51,19 @@ public class ToDoBuilder extends Builder {
                     COMMAND_FORMAT));
         }
 
-        return new ToDoCommand(taskManager, input);
+        String taskName;
+        List<String> tags = new ArrayList<>();
+
+        String[] parts = input.split(TAGS_KEYWORD, 2);
+        taskName = parts[0].trim();
+        if (taskName.isEmpty()) {
+            throw new InvalidCommandException(String.format(Messages.WRONG_COMMAND_FORMAT,
+                    COMMAND_FORMAT));
+        }
+        if (parts.length > 1) {
+            tags = Arrays.asList(parts[1].trim().split("\\s+"));
+        }
+
+        return new ToDoCommand(taskManager, taskName, tags);
     }
 }

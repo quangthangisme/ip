@@ -12,8 +12,10 @@ import mightyduck.command.builder.EventBuilder;
 import mightyduck.command.builder.FindBuilder;
 import mightyduck.command.builder.ListBuilder;
 import mightyduck.command.builder.MarkBuilder;
+import mightyduck.command.builder.TagBuilder;
 import mightyduck.command.builder.ToDoBuilder;
 import mightyduck.command.builder.UnmarkBuilder;
+import mightyduck.command.builder.UntagBuilder;
 import mightyduck.command.command.Command;
 import mightyduck.data.task.TaskManager;
 import mightyduck.exception.InvalidCommandException;
@@ -52,7 +54,9 @@ public class Parser {
                 new Pair<>(ListBuilder.COMMAND_WORD, new ListBuilder(taskManager)),
                 new Pair<>(MarkBuilder.COMMAND_WORD, new MarkBuilder(taskManager)),
                 new Pair<>(ToDoBuilder.COMMAND_WORD, new ToDoBuilder(taskManager)),
-                new Pair<>(UnmarkBuilder.COMMAND_WORD, new UnmarkBuilder(taskManager))
+                new Pair<>(UnmarkBuilder.COMMAND_WORD, new UnmarkBuilder(taskManager)),
+                new Pair<>(TagBuilder.COMMAND_WORD, new TagBuilder(taskManager)),
+                new Pair<>(UntagBuilder.COMMAND_WORD, new UntagBuilder(taskManager))
         );
 
         for (Pair<String, Builder> builder : builders) {

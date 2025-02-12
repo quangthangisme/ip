@@ -24,6 +24,32 @@ public class Deadline extends Task {
     private final LocalDateTime deadline;
 
     /**
+     * Constructs a new {@code Deadline} task with the specified name, completion status, deadline
+     * time, and tags.
+     *
+     * @param name     The name of the task.
+     * @param isDone   The completion status of the task.
+     * @param deadline The deadline time of the task.
+     * @param tags     The list of tags associated with the task.
+     */
+    public Deadline(String name, boolean isDone, LocalDateTime deadline, List<String> tags) {
+        super(name, SIGNATURE, isDone, tags);
+        this.deadline = deadline;
+    }
+
+    /**
+     * Constructs a new {@code Deadline} task with the specified name, deadline time, and tags.
+     *
+     * @param name     The name of the task.
+     * @param deadline The deadline time of the task.
+     * @param tags     The list of tags associated with the task.
+     */
+    public Deadline(String name, LocalDateTime deadline, List<String> tags) {
+        super(name, SIGNATURE, false, tags);
+        this.deadline = deadline;
+    }
+
+    /**
      * Constructs a new {@code Deadline} task with the specified name and deadline time.
      *
      * @param name     The name of the task.

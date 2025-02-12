@@ -15,6 +15,27 @@ public class ToDo extends Task {
     public static final String SIGNATURE = "T";
 
     /**
+     * Constructs a new {@code ToDo} task with the specified name, completion status, and tags.
+     *
+     * @param name     The name of the task.
+     * @param isDone   The completion status of the task.
+     * @param tags     The list of tags associated with the task.
+     */
+    public ToDo(String name, boolean isDone, List<String> tags) {
+        super(name, SIGNATURE, isDone, tags);
+    }
+
+    /**
+     * Constructs a new {@code ToDo} task with the specified name, completion status, and tags.
+     *
+     * @param name     The name of the task.
+     * @param tags     The list of tags associated with the task.
+     */
+    public ToDo(String name, List<String> tags) {
+        super(name, SIGNATURE, false, tags);
+    }
+
+    /**
      * Constructs a new {@code ToDo} task with the specified name..
      *
      * @param name The name of the task.

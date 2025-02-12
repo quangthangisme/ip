@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ public class EventCommandTest {
         assertEquals(0, taskManager.getTasks().size());
 
         EventCommand command = new EventCommand(taskManager, "test", LocalDateTime.now(),
-                LocalDateTime.now().plusDays(1));
+                LocalDateTime.now().plusDays(1), List.of());
         command.execute();
 
         assertEquals(1, taskManager.getTasks().size());

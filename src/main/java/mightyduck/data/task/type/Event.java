@@ -29,6 +29,37 @@ public class Event extends Task {
     private final LocalDateTime endTime;
 
     /**
+     * Constructs a new {@code Event} task with the specified name, completion status, start time,
+     * end time, and tags.
+     *
+     * @param name      The name of the task.
+     * @param isDone    The completion status of the task.
+     * @param startTime The start time of the task.
+     * @param endTime   The end time of the task.
+     * @param tags      The list of tags associated with the task.
+     */
+    public Event(String name, boolean isDone, LocalDateTime startTime, LocalDateTime endTime,
+                 List<String> tags) {
+        super(name, SIGNATURE, isDone, tags);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
+     * Constructs a new {@code Event} task with the specified name, start time, end time, and tags.
+     *
+     * @param name      The name of the task.
+     * @param startTime The start time of the task.
+     * @param endTime   The end time of the task.
+     * @param tags      The list of tags associated with the task.
+     */
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, List<String> tags) {
+        super(name, SIGNATURE, false, tags);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
      * Constructs a new {@code Event} task with the specified name, start time, and end time.
      *
      * @param name      The name of the task.

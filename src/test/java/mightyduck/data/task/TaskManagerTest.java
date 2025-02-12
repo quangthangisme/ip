@@ -43,7 +43,7 @@ public class TaskManagerTest {
     void getTask_invalidIndex_throwsException() {
         Exception exception = assertThrows(InvalidValueException.class, () ->
                 taskManager.getTask(0));
-        assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
+        assertEquals(String.format(Messages.OUT_OF_RANGE_INDEX, 0), exception.getMessage());
     }
 
     @Test
@@ -67,14 +67,14 @@ public class TaskManagerTest {
     void markTask_invalidIndex_throwsException() {
         Exception exception = assertThrows(InvalidValueException.class, () ->
                 taskManager.markTask(0));
-        assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
+        assertEquals(String.format(Messages.OUT_OF_RANGE_INDEX, 0), exception.getMessage());
     }
 
     @Test
     void unmarkTask_invalidIndex_throwsException() {
         Exception exception = assertThrows(InvalidValueException.class, () ->
                 taskManager.unmarkTask(0));
-        assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
+        assertEquals(String.format(Messages.OUT_OF_RANGE_INDEX, 0), exception.getMessage());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class TaskManagerTest {
     void deleteTask_invalidIndex_throwsException() {
         Exception exception = assertThrows(InvalidValueException.class, () ->
                 taskManager.deleteTask(0));
-        assertEquals(Messages.OUT_OF_RANGE_INDEX, exception.getMessage());
+        assertEquals(String.format(Messages.OUT_OF_RANGE_INDEX, 0), exception.getMessage());
     }
 
     @Test

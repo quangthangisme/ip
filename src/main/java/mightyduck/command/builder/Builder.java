@@ -9,6 +9,7 @@ import mightyduck.exception.InvalidValueException;
  * Abstract base class for builders that create {@link Command} objects from user input.
  */
 public abstract class Builder {
+
     /**
      * The {@link TaskManager} instance that will be used to manage tasks.
      */

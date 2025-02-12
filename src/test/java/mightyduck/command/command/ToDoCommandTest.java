@@ -3,6 +3,8 @@ package mightyduck.command.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +24,7 @@ public class ToDoCommandTest {
     void execute_validArguments_addsDeadlineTask() throws InvalidValueException {
         assertEquals(0, taskManager.getTasks().size());
 
-        ToDoCommand command = new ToDoCommand(taskManager, "test1");
+        ToDoCommand command = new ToDoCommand(taskManager, "test1", List.of());
         command.execute();
 
         assertEquals(1, taskManager.getTasks().size());

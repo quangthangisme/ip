@@ -66,10 +66,6 @@ public class MainController extends AnchorPane {
         assert sendButton != null : "SendButton is not initialized!";
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-        dialogContainer.getChildren().add(
-                DialogBoxController.getDuckDialog(Messages.WELCOME, duckImage)
-        );
     }
 
     /**
@@ -78,6 +74,9 @@ public class MainController extends AnchorPane {
     public void initializeMightyDuck() {
         try {
             mightyDuck = new MightyDuck();
+            dialogContainer.getChildren().add(
+                    DialogBoxController.getDuckDialog(Messages.WELCOME, duckImage)
+            );
         } catch (InvalidStoragePathException | StorageLoadException e) {
             showErrorAlert(INITIALIZATION_ERROR_HEADER, e.getMessage());
             Platform.runLater(() -> System.exit(0));

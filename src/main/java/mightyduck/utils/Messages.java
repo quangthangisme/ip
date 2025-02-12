@@ -79,7 +79,7 @@ public class Messages {
     /**
      * Message displayed when the task index is out of range.
      */
-    public static final String OUT_OF_RANGE_INDEX = "The task number is out of range!";
+    public static final String OUT_OF_RANGE_INDEX = "The task number is out of range: %s";
 
     /**
      * Message displayed when the end time of a task is before its start time.
@@ -122,6 +122,39 @@ public class Messages {
      * Message displayed when an error occurs while loading data from storage.
      */
     public static final String LOAD_ERROR = "Error loading file: %s";
+
+    /**
+     * Message displayed when a task is tagged.
+     */
+    public static final String TAG = "Duck duck goose, the task is tagged!";
+
+    /**
+     * Message displayed when attempting to add an already existing tag to a task.
+     */
+    public static final String TAG_DUPLICATION =
+            "Duck duck goose, this task is already tagged with %s: %s";
+
+    /**
+     * Message displayed when attempting to remove a non-existent tag from a task.
+     */
+    public static final String TAG_NOT_FOUND =
+            "Duck duck goose, this task is not tagged with %s: %s";
+
+    /**
+     * Message displayed when a task is untagged.
+     */
+    public static final String UNTAG = "Duck duck goose, the task is untagged!";
+
+    /**
+     * Message displayed when attempting to mark an already marked task.
+     */
+    public static final String ALREADY_MARKED = "This task is already duck-umented as done: %s!";
+
+    /**
+     * Message displayed when attempting to unmark an already unmarked task.
+     */
+    public static final String ALREADY_UNMARKED =
+            "This task is already duck-umented as not done: %s!";
 
     /**
      * Private constructor to prevent instantiation of this utility class
