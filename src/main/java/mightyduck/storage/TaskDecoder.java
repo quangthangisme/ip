@@ -35,7 +35,7 @@ public class TaskDecoder {
     );
 
     /**
-     * Private constructor to prevent instantiation of this utility class
+     * Private constructor to prevent instantiation of this utility class.
      */
     private TaskDecoder() {
         throw new UnsupportedOperationException("Utility class should not be instantiated.");

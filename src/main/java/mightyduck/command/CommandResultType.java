@@ -7,22 +7,28 @@ package mightyduck.command;
 public enum CommandResultType {
 
     /**
-     * Indicates a successful execution.
+     * Indicates that the command was executed successfully.
      */
     SUCCESS,
 
     /**
-     * Indicates an error result due to incorrect user input or other invalid command issues.
+     * Indicates that the command failed due to incorrect user input or other issues.
      */
     ERROR,
 
     /**
-     * Indicates the termination of the application or program.
+     * Indicates that the application or program should terminate.
      */
     TERMINATION,
 
     /**
-     * Indicates a runtime error that occurs during the command execution.
+     * Indicates a runtime error that occurred during the execution of the command.
+     * This is used for errors that prevent the application from continuing as expected.
      */
-    TERMINATING_ERROR
+    TERMINATING_ERROR,
+
+    /**
+     * Indicates that the help command was executed.
+     */
+    HELP
 }

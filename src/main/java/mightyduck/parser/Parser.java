@@ -44,7 +44,8 @@ public class Parser {
                 new Pair<>(ToDoBuilder.COMMAND_WORD, new ToDoBuilder(taskManager)),
                 new Pair<>(UnmarkBuilder.COMMAND_WORD, new UnmarkBuilder(taskManager)),
                 new Pair<>(TagBuilder.COMMAND_WORD, new TagBuilder(taskManager)),
-                new Pair<>(UntagBuilder.COMMAND_WORD, new UntagBuilder(taskManager))
+                new Pair<>(UntagBuilder.COMMAND_WORD, new UntagBuilder(taskManager)),
+                new Pair<>(HelpBuilder.COMMAND_WORD, new HelpBuilder(taskManager))
         );
 
         for (Pair<String, Builder> builder : builders) {

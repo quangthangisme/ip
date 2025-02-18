@@ -22,7 +22,7 @@
             <Circle centerX="20" centerY="20" radius="20"/>
         </clip>
     </ImageView>
-    <VBox fx:id="taskListContainer" spacing="5" style="-fx-font-family: 'Monospaced';">
+    <VBox fx:id="container" spacing="5" style="-fx-font-family: 'Monospaced';">
         <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"/>
     </VBox>
 </fx:root>

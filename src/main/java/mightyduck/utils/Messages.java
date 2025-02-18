@@ -167,7 +167,12 @@ public class Messages {
     public static final String DUPLICATE_TAG = "This tag is duck-plicated: %s";
 
     /**
-     * Private constructor to prevent instantiation of this utility class
+     * Message displayed when providing a link to the user guide.
+     */
+    public static final String HELP_MESSAGE = "See the guide at ";
+
+    /**
+     * Private constructor to prevent instantiation of this utility class.
      */
     private Messages() {
         throw new UnsupportedOperationException("Utility class should not be instantiated.");

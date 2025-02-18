@@ -15,7 +15,7 @@ import mightyduck.utils.Messages;
 public class Validation {
 
     /**
-     * Private constructor to prevent instantiation of this utility class
+     * Private constructor to prevent instantiation of this utility class.
      */
     private Validation() {
         throw new UnsupportedOperationException("Utility class should not be instantiated.");

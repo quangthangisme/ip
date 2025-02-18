@@ -23,7 +23,7 @@ public class ToDoBuilder extends Builder {
     /**
      * The format of the "todo" command.
      */
-    public static final String COMMAND_FORMAT = "todo <name> [/tags <tag1> <tag>2 ...]";
+    public static final String COMMAND_FORMAT = "todo <name> [/tags <tag1> <tag2> ...]";
 
     /**
      * The keyword indicating the tags.

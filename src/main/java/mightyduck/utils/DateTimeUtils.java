@@ -19,7 +19,7 @@ public class DateTimeUtils {
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
-     * Private constructor to prevent instantiation of this utility class
+     * Private constructor to prevent instantiation of this utility class.
      */
     private DateTimeUtils() {
         throw new UnsupportedOperationException("Utility class should not be instantiated.");

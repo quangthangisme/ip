@@ -136,6 +136,9 @@ public class MainController extends AnchorPane {
     private void addDuckDialog(CommandResult commandResult) {
         DialogBoxController dialogBox = DialogBoxController.getDialog(commandResult.feedback(),
                 duckImage, commandResult.tasks());
+        if (commandResult.commandResultType() == CommandResultType.HELP) {
+            dialogBox.addGuideLink();
+        }
         if (commandResult.commandResultType() == CommandResultType.ERROR) {
             dialogBox.setErrorDialog();
         }
