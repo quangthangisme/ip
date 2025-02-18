@@ -13,6 +13,7 @@ import mightyduck.exception.StorageWriteException;
 import mightyduck.parser.Parser;
 import mightyduck.storage.Storage;
 import mightyduck.task.TaskManager;
+import mightyduck.utils.Config;
 import mightyduck.utils.Messages;
 
 /**
@@ -20,8 +21,6 @@ import mightyduck.utils.Messages;
  * storage operations.
  */
 public class MightyDuck {
-    private static final String STORAGE_PATH = "./data/mightyduck.txt";
-
     private final Storage storage;
     private final TaskManager taskManager;
     private final Parser parser;
@@ -33,7 +32,7 @@ public class MightyDuck {
      * @throws StorageLoadException        If an error occurs while loading the file.
      */
     public MightyDuck() throws InvalidStoragePathException, StorageLoadException {
-        storage = new Storage(STORAGE_PATH);
+        storage = new Storage(Config.STORAGE_PATH);
         taskManager = storage.load();
         parser = new Parser(taskManager);
     }

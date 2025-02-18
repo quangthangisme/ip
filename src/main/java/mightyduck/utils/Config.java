@@ -11,6 +11,11 @@ public class Config {
     public static final String GUIDE_LINK = "https://quangthangisme.github.io/ip/";
 
     /**
+     * The path to the data file of the application.
+     */
+    public static final String STORAGE_PATH = "./data/mightyduck.txt";
+
+    /**
      * Private constructor to prevent instantiation of this utility class.
      */
     private Config() {
