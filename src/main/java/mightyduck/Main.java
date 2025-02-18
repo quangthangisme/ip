@@ -15,6 +15,8 @@ import mightyduck.controller.MainController;
 public class Main extends Application {
 
     private static final String VIEW_PATH = "/view/MainView.fxml";
+    private static final int MIN_WIDTH = 400;
+    private static final int MIN_LENGTH = 600;
 
     /**
      * Default constructor.
@@ -23,17 +25,16 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(VIEW_PATH));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
-            stage.setScene(scene);
-            stage.show();
-            MainController controller = fxmlLoader.getController();
-            controller.initializeMightyDuck();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(VIEW_PATH));
+        AnchorPane ap = fxmlLoader.load();
+        Scene scene = new Scene(ap, MIN_WIDTH, MIN_LENGTH);
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.setMinWidth(MIN_WIDTH);
+        stage.setMinHeight(MIN_LENGTH);
+        stage.show();
+        MainController controller = fxmlLoader.getController();
+        controller.initializeMightyDuck();
     }
 }

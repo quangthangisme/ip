@@ -11,15 +11,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import mightyduck.MightyDuck;
 import mightyduck.command.CommandResult;
 import mightyduck.command.CommandResultType;
 import mightyduck.exception.InvalidStoragePathException;
 import mightyduck.exception.StorageLoadException;
-import mightyduck.task.Task;
 import mightyduck.utils.Messages;
-import mightyduck.utils.Pair;
 
 /**
  * Controller for the main GUI.
@@ -29,8 +28,8 @@ public class MainController extends AnchorPane {
     private static final String ERROR_TITLE = "Error";
     private static final String INITIALIZATION_ERROR_HEADER = "Initialization Error";
     private static final String RUNTIME_ERROR_HEADER = "Runtime Error";
-    private static final String USER_IMAGE_PATH = "/images/DaUser.png";
-    private static final String DUCK_IMAGE_PATH = "/images/DaDuke.png";
+    private static final String USER_IMAGE_PATH = "/images/user.png";
+    private static final String DUCK_IMAGE_PATH = "/images/duck.png";
 
     @FXML
     private ScrollPane scrollPane;
@@ -66,6 +65,7 @@ public class MainController extends AnchorPane {
         assert sendButton != null : "SendButton is not initialized!";
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        VBox.setVgrow(dialogContainer, Priority.ALWAYS);
     }
 
     /**
@@ -74,13 +74,13 @@ public class MainController extends AnchorPane {
     public void initializeMightyDuck() {
         try {
             mightyDuck = new MightyDuck();
-            dialogContainer.getChildren().add(
-                    DialogBoxController.getDuckDialog(Messages.WELCOME, duckImage)
-            );
         } catch (InvalidStoragePathException | StorageLoadException e) {
             showErrorAlert(INITIALIZATION_ERROR_HEADER, e.getMessage());
             Platform.runLater(() -> System.exit(0));
         }
+        dialogContainer.getChildren().add(
+                DialogBoxController.getDialog(Messages.WELCOME, duckImage)
+        );
     }
 
     /**
@@ -104,12 +104,13 @@ public class MainController extends AnchorPane {
      */
     private void addUserDialog(String input) {
         dialogContainer.getChildren().add(
-                DialogBoxController.getUserDialog(input, userImage)
+                DialogBoxController.getDialog(input, userImage)
         );
     }
 
     /**
-     * Processes the command entered by the user and updates the dialog container with the response.
+     * Processes the command entered by the user and updates the dialog container with the
+     * response.
      *
      * @param input The command entered by the user.
      */
@@ -133,17 +134,12 @@ public class MainController extends AnchorPane {
      * Creates and adds a dialog box for the duck with the command result feedback and tasks.
      */
     private void addDuckDialog(CommandResult commandResult) {
-        StringBuilder response = new StringBuilder();
-        response.append(commandResult.feedback()).append("\n");
-
-        for (Pair<Integer, Task> taskPair : commandResult.tasks()) {
-            response.append("\t").append(taskPair.key() + 1).append(". ")
-                    .append(taskPair.value()).append("\n");
+        DialogBoxController dialogBox = DialogBoxController.getDialog(commandResult.feedback(),
+                duckImage, commandResult.tasks());
+        if (commandResult.commandResultType() == CommandResultType.ERROR) {
+            dialogBox.setErrorDialog();
         }
-
-        dialogContainer.getChildren().add(
-                DialogBoxController.getDuckDialog(response.toString(), duckImage)
-        );
+        dialogContainer.getChildren().add(dialogBox);
     }
 
     /**
