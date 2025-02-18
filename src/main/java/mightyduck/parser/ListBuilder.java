@@ -22,6 +22,12 @@ public class ListBuilder extends Builder {
         super(taskManager);
     }
 
+    /**
+     * Parses the user input and returns a {@link ListCommand}.
+     *
+     * @param input The user input string.
+     * @return A new {@link ListCommand} instance.
+     */
     public ListCommand fromInput(String input) {
         return new ListCommand(taskManager);
     }
