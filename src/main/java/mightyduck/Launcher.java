@@ -14,7 +14,7 @@ public class Launcher {
     }
 
     /**
-     * The main entry point for launching the JavaFX application.
+     * Launches the JavaFX application.
      *
      * @param args Command-line arguments passed to the application.
      */

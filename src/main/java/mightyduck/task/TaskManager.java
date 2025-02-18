@@ -241,7 +241,7 @@ public class TaskManager {
     }
 
     /**
-     * Check if the indices are at least 0 and smaller than the number of tasks
+     * Checks if the indices are at least 0 and smaller than the number of tasks
      *
      * @param indices The list of indices to validate.
      * @throws InvalidValueException If at least one of the indices is invalid.
